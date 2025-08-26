@@ -1,0 +1,1 @@
+//Archivo para manejar estados globales con zustand.

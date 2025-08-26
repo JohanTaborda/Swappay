@@ -1,10 +1,16 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { BrowserRouter } from 'react-router-dom'; 
+
+import "./resources/styles/stylesGeneral.css"
+
+//Hacemos uso de Boostrap 5
+import 'bootstrap/dist/css/bootstrap.css'; 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+import App from './modules/layouts/App/App';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
 )
