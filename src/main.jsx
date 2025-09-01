@@ -7,10 +7,10 @@ import "./resources/styles/stylesGeneral.css"
 import 'bootstrap/dist/css/bootstrap.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import App from './modules/layouts/App/App';
+import Main from './modules/layouts/main/Main';
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-      <App />
+      <Main />
     </BrowserRouter>
 )
