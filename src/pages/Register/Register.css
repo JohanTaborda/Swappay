@@ -1,0 +1,127 @@
+#bodyGeneralRegister{
+    display: flex;
+    flex-direction: row-reverse;
+    height: 500px;
+    width: 800px;
+    background: linear-gradient(180deg, #c3d5e9, #5a7ba9);
+    padding: 0;
+    position: relative;
+}
+
+.titleSectionRegister{
+    margin-bottom: 20px;
+}
+
+.containerBodyRegister{ /*Estilos para el contenedor que almacena el form de inicio de sesión.*/
+    height: 100%;
+    width: 50%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+    font-family: "Outfit";
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+
+.formRegister{ /* Formulario de registro */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.form--input{ /* Estilo de los inputs del formulario */
+    width: 85%;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-family: "Outfit";
+    padding-left: 5px;
+    border: 1px solid #ada4a4;
+    color: #000;
+}
+
+.form--input:focus{ outline: none;} /* Elimina el contorno azul al hacer clic en el input */
+
+.form--input::placeholder{opacity: 0.8;} /* Estilo del placeholder de los inputs */
+
+.inputNameComplet{
+    display: flex;
+    width: 85%;
+    gap: 10px;
+}
+
+.btnRegister{  /* se le hace el diseño al boton ingresar*/
+    background-color: #3c6fb6;
+    color: white; 
+    border: none;
+    padding: 10px 40px;
+    font-size: 0.95rem !important;
+    border-radius: 5px; 
+    width: 85%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnRegister:hover{ /* Efecto hover para el botón de registro */
+    background-color: #2e67b8;
+}
+
+#infoRegister{
+    margin-top: 15px;
+}
+
+.iconCloseRegister{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.iconCloseRegister:hover{transform: scale(1.2);}
+
+.input-error {  /* Estilo para los inputs con error */
+    border-color: red !important;
+    background-color: #ffe6e6;
+}
+
+
+@media(max-width: 811px){
+    .containerLogo{display: none;}
+
+    .containerBodylogin{
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    #bodyGeneralRegister{ 
+        display: block;
+        height: 440px;
+        width: 55%;
+        height: 470px;
+    }
+
+    .containerBodyRegister{
+        width: 100%;
+        border-radius: 8px;
+    }
+}
+
+@media(max-width:505px){
+    #bodyGeneralRegister{width: 80%}
+} 
+@media(max-width:385px){
+    #bodyGeneralRegister{ width: 80%}
+
+    #bodyGeneralRegister{ 
+        height: 480px;
+    }
+} 

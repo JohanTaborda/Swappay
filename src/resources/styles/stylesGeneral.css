@@ -52,3 +52,10 @@
     opacity: 0;
 }
 
+img { /*Deshabilitamos la selección de imagenes*/
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+}
