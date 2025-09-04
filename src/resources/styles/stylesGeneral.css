@@ -1,1 +1,54 @@
-/*Estilos generales de la aplicación.*/
+/*Fuente primaria*/
+@font-face {
+    font-family: 'Outfit' ;
+    src: url('../fonts/Outfit-VariableFont_wght.ttf');
+}
+/*Fuente secundaria*/
+@font-face {
+    font-family: 'Manrope' ;
+    src: url('../fonts/Manrope-VariableFont_wght.ttf');
+}
+
+:root{ /*Deshabilitamos la opción para seleccionar elementos en la aplicación*/
+    user-select: none;
+}
+
+/*Estilos Generales para las ventanas Emergentes*/
+
+.overlayGeneral{ /*Estilos para el overlay*/
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(0.1px); 
+    z-index: 999; 
+}
+
+.containerGeneralOverlay{ /*Estilos para el contenedor que va después del Overlay, el contenedor principal.*/
+    display: flex;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -80%) translateY(25%); 
+    transition: transform 0.5s ease, opacity 0.5s ease; 
+    background: #fff;
+    color: #000;
+    width: 250px;
+    height: 150px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+}
+
+.containerGeneralOverlay.active{ /*Animación que se genera cuando el contenedor aparece.*/
+    transform: translate(-50%, -50%) translateY(0);
+    opacity: 1;
+}
+
+.containerGeneralOverlay.hidden{ /*Animación que se genera cuando el contenedor se oculta.*/
+    transform: translate(-50%, -50%) translateY(100%);
+    opacity: 0;
+}
+

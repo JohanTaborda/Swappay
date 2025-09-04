@@ -1,16 +1,18 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'; 
+import { BrowserRouter } from 'react-router-dom'; //Importamos las rutas.
 
-import "./resources/styles/stylesGeneral.css"
+import "./resources/styles/stylesGeneral.css" //Importamos los estilos generales para toda la aplicación
 
 //Hacemos uso de Boostrap 5
 import 'bootstrap/dist/css/bootstrap.css'; 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import App from './modules/layouts/App/App';
+import 'react-toastify/dist/ReactToastify.css'; //Importamos los estilos de los Toast
+
+import Main from './modules/layouts/main/Main'; //Importamos el componente principal
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-      <App />
+    <BrowserRouter> 
+      <Main />
     </BrowserRouter>
 )
