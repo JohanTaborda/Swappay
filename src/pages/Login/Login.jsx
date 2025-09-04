@@ -67,8 +67,8 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
                         <div>
                             <h5 className="infoInputLogin">Contraseña:</h5>
                             <div style={{position:"relative"}}>
-                                <input type={`${!visPassword ? "text" : "password"}`} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="***********" className="input_Credential"/>
-                                <span onClick={() => setVisPassowrd(!visPassword)} className="eyeViewPassword">{visPassword ? viewOffPassword() : viewPassword()}</span>
+                                <input type={`${visPassword ? "text" : "password"}`} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="***********" className="input_Credential"/>
+                                <span onClick={() => setVisPassowrd(!visPassword)} className="eyeViewPassword">{!visPassword ? viewOffPassword() : viewPassword()}</span>
                             </div>
                         </div>
                         <div className="btnLoginWelcome">
@@ -78,7 +78,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
                             <hr style={{border: 'none', borderTop: '1px solid #000', margin: '0 0'}} />
                         </div>
                         <div className="infoRegistroLogin">
-                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(false)}>Regístrate Aquí</label></p> 
+                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(false)}>Regístrate aquí</label></p> 
                         </div>
                     </form>
                 </section>
