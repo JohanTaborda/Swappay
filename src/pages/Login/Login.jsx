@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 
 import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la ventana
+import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
 
 /* Recibimos mediante props: 
 setChangeComponent: Cambia cuando se inicia sesión, muestra el dashboard o panel informativo.
@@ -16,9 +17,12 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
 
     const [email, setEmail] = useState(""); //Variable que almacena el email digitado en el imput
     const [password, setPassword] = useState("");//Variable que almacena la contraseña digitada en el imput
+    const [visPassword, setVisPassowrd] = useState(false);
     
     const iconClose = () => <IoClose className="iconClose" onClick={() => setVisAuth(false)}/> //Icono para cerrar la ventana
-    
+    const viewPassword = () => <IoMdEye color="#525151ff"/>
+    const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/>
+
     const handleSubmit =  (e) => { //Fuinción que se llama cuando damos clic al botón de 'Ingresar'
         e.preventDefault(); 
 
@@ -41,8 +45,6 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
             toast.error("Correo o contraseña incorrectos", {position: "top-right",autoClose: 2000,hideProgressBar: false,closeOnClick: true,
                 pauseOnHover: true, draggable: true,progress: undefined,});
         }
-
-
     };
 
     return(
@@ -64,16 +66,19 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
                         </div>
                         <div>
                             <h5 className="infoInputLogin">Contraseña:</h5>
-                            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="***********" className="input_Credential"/>
+                            <div style={{position:"relative"}}>
+                                <input type={`${visPassword ? "text" : "password"}`} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="***********" className="input_Credential"/>
+                                <span onClick={() => setVisPassowrd(!visPassword)} className="eyeViewPassword">{!visPassword ? viewOffPassword() : viewPassword()}</span>
+                            </div>
                         </div>
                         <div className="btnLoginWelcome">
                             <button id="BtnWelcome">Ingresar</button> {/*Botón que llama la función de handleSubmit para el inicio de sesión*/}
                         </div>
-                        <p style={{margin: '10px 0 0 0', textAlign: 'center'}}>
-                            <hr style={{border: 'none', borderTop: '1px solid #000', margin: '0px 0'}} />
-                        </p>
+                        <div >
+                            <hr style={{border: 'none', borderTop: '1px solid #000', margin: '0 0'}} />
+                        </div>
                         <div className="infoRegistroLogin">
-                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(false)}>Regístrate Aquí</label></p> 
+                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(false)}>Regístrate aquí</label></p> 
                         </div>
                     </form>
                 </section>

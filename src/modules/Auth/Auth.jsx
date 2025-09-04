@@ -16,7 +16,7 @@ const Auth = ({setChangeComponent, setVisAuth}) => {
             {visLogin ? ( //Si visLogin es true, mostramos el Login, de lo contrario mostramos el componente de 'Register'.
                 <Login setChangeComponent={setChangeComponent} setVisLogin={setVisLogin} setVisAuth={setVisAuth}/>
             ) : (
-                <Register/>
+                <Register setVisLogin={setVisLogin}  setVisAuth={setVisAuth}/>
             )}
         </>
     )
