@@ -8,22 +8,24 @@ import { ToastContainer } from 'react-toastify';
 
 import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la ventana
 import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
-
+import { useNavigate } from "react-router-dom";
+import api from "../../service/axiosConfig";
 /* Recibimos mediante props: 
 setChangeComponent: Cambia cuando se inicia sesión, muestra el dashboard o panel informativo.
 setVisLogin: Permite alternar la visibilidad del Login y Registro, este cambia cuando se le da al botón de 'Registrarse'
 setVisAuth: Alterna la visibilidad del Login, para ocultar cuando se le de clic al icono de 'Close'*/
 const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
 
+    const navigate= useNavigate();
     const [email, setEmail] = useState(""); //Variable que almacena el email digitado en el imput
     const [password, setPassword] = useState("");//Variable que almacena la contraseña digitada en el imput
     const [visPassword, setVisPassowrd] = useState(false);
     
-    const iconClose = () => <IoClose className="iconClose" onClick={() => setVisAuth(false)}/> //Icono para cerrar la ventana
+    const iconClose = () => <IoClose className="iconClose" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
     const viewPassword = () => <IoMdEye color="#525151ff"/>
     const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/>
 
-    const handleSubmit =  (e) => { //Fuinción que se llama cuando damos clic al botón de 'Ingresar'
+    const handleSubmit = async (e) => { //Fuinción que se llama cuando damos clic al botón de 'Ingresar'
         e.preventDefault(); 
 
         // Validación básica de campos vacíos
@@ -33,18 +35,28 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
             return;
         }
 
-        //Validación con datos correctos.
-        if(email.trim() === data.userEmail && password.trim() === data.password){
-            toast.success(`¡Bienvenid@!  ${data.Username}`, { position: "top-center",autoClose: 1500,hideProgressBar: false,closeOnClick: true,
+        try {
+
+            const response = await api.post("/auth/login", {
+                email, 
+                password
+            })
+
+            const data = response.data;
+
+            console.log(data)
+
+            toast.success(`¡Bienvenid@! ${data.username}`, { position: "top-center",autoClose: 1500,hideProgressBar: false,closeOnClick: true,
             pauseOnHover: true,draggable: true,progress: undefined,});
 
             setTimeout(() => { //Damos una espera de 2 segundos para iniciar sesión.
-                setChangeComponent(false)
+                navigate("/panel")
             }, 2000);
-        }else{
-            toast.error("Correo o contraseña incorrectos", {position: "top-right",autoClose: 2000,hideProgressBar: false,closeOnClick: true,
-                pauseOnHover: true, draggable: true,progress: undefined,});
+            
+        } catch (error) {
+            console.log(`errores: ${error}`)
         }
+
     };
 
     return(
@@ -78,7 +90,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
                             <hr style={{border: 'none', borderTop: '1px solid #000', margin: '0 0'}} />
                         </div>
                         <div className="infoRegistroLogin">
-                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(false)}>Regístrate aquí</label></p> 
+                            <p>¿No tienes cuenta? <label className="clicRegister" onClick={()=> navigate("/registro")}>Regístrate aquí</label></p> 
                         </div>
                     </form>
                 </section>

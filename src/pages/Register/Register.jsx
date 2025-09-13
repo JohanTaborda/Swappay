@@ -8,17 +8,21 @@ import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 
 import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la ventana
+import { useNavigate } from "react-router-dom";
+import api from "../../service/axiosConfig";
 
 // Recibe dos props: setVisLogin y setVisAuth para controlar la visibilidad de pantallas de login y autenticación.
 const Register = ({setVisLogin, setVisAuth}) => {
 
-    const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => setVisAuth(false)}/> //Icono para cerrar la ventana
+    const navigate = useNavigate();
+    const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
     
     // Configuramos el hook useForm de react-hook-form, register -> registra inputs
     // handleSubmit -> maneja el envío del formulario, watch -> observa cambios en los campos, errors -> contiene errores de validación
     const {register,handleSubmit, watch, formState: { errors },} = useForm()
 
-    const onSubmit = (formData) => { // Función que se ejecuta al enviar el formulario
+    const onSubmit = async (formData) => { // Función que se ejecuta al enviar el formulario
+
         const { password, confirmPassword, firstName, lastName, email, city} = formData;
       
         //Validamos que las contraseñas coincidan.
@@ -27,11 +31,27 @@ const Register = ({setVisLogin, setVisAuth}) => {
           return;
         }
 
-        toast.success("¡Registro completado!", {position: "top-center"});
+        try {
+            
+            await api.post("/users", {
+                username: `${firstName} ${lastName}`,
+                city,
+                email,
+                password
+            })
 
-        setTimeout(() => {
-            setVisLogin(true)
-        }, 2000);
+            toast.success("¡Registro completado!", {position: "top-center"});
+
+            setTimeout(() => {
+                navigate("/ingresar")
+            }, 2000);
+        } catch (error) {
+            console.log(error)
+        }
+
+        
+
+ 
     }
     
     useEffect(() => { // useEffect se encarga de escuchar los errores del formulario y mostrar mensajes con Toast
@@ -80,7 +100,7 @@ const Register = ({setVisLogin, setVisAuth}) => {
                         </button>
                     </form>
                     <div className="infoRegistroLogin" id="infoRegister">
-                        <p>¿Ya tienes cuenta? <label className="clicRegister" onClick={()=> setVisLogin(true)}>Inicia sesión</label></p> 
+                        <p>¿Ya tienes cuenta? <label className="clicRegister" onClick={()=> navigate("/ingresar")}>Inicia sesión</label></p> 
                     </div>
                 </section>
 
