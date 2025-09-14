@@ -1,0 +1,1 @@
+Acá se colocan las imagenes que llevara la aplicación, por ejemplo los logos. 

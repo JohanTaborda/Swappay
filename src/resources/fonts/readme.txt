@@ -1,0 +1,1 @@
+Acá se colocan las fuentes que se utilizaran en la aplicación, descargadas desde google fonts (Manrope, Outfit)

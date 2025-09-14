@@ -1,0 +1,181 @@
+#Logo_Body_Login{ /*Contenedor general del Login*/
+    display: flex;
+    height: 500px;
+    width: 800px;
+    background: linear-gradient(180deg, #c3d5e9, #5a7ba9);
+    padding: 0;
+    position: relative;
+}
+
+.containerLogo{ /*Estilos para el contenedor que almacena el Logo y textos informativos.*/
+    position: relative;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    width: 57%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgLogo{
+    position: relative;
+    height: 50%;
+    width: 55%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 6px;
+}
+
+.textWelcome{
+    font-family: "Outfit";
+    font-weight: 500;
+    font-size: 40px;
+    color: #fff;
+}
+
+.textDescriptionLogin{
+    font-family: "Manrope";
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.containerBodylogin{ /*Estilos para el contenedor que almacena el form de inicio de sesión.*/
+    height: 100%;
+    width: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 66px;
+    font-family: "Outfit";
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.formDataLogin{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    gap: 20px;
+}
+
+.input_Credential {  /* le damos el diseño a los input del login*/
+    width: 100%;
+    height: 37px !important;
+    padding: 7px;
+    font-size: 15px;
+    font-family: "Outfit";
+    border: 1px solid #646464;
+    color: #000;
+    border-radius: 5px;
+    outline: none;
+}
+
+.infoInputLogin{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.btnLoginWelcome{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.BtnWelcome{  /* se le hace el diseño al boton ingresar*/
+    background-color: #3c6fb6;
+    color: white; 
+    border: none;
+    padding: 10px 40px;
+    font-size: 0.95rem !important;
+    border-radius: 5px; 
+    width: 85%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.BtnWelcome:hover{ /* Efecto hover para el botón de registro */
+    background-color: #2e67b8;
+}
+
+.infoRegistroLogin{
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.textIniciarSesion{
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.iconClose{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 27px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.iconClose:hover{
+    transform: scale(1.2);
+}
+
+.clicRegister{
+    cursor: pointer;
+    text-decoration:underline;
+    color: #155bbe;
+    font-weight: 500;
+}
+
+.eyeViewPassword{
+    position: absolute;
+    right: 7px;
+    top: 2px;
+    font-size: 20px;
+    cursor: pointer;
+    
+}
+
+@media(max-width: 811px){
+    .containerLogo{display: none;}
+    .Login__Register{
+        display: flex;
+        font-size: 16px;
+        text-wrap: nowrap;
+    }
+    .containerBodylogin{
+        width: 100%;
+        border-radius: 8px;
+    }
+
+    #Logo_Body_Login{ 
+        height: 440px;
+        width: 55%;
+    }
+}
+
+@media(max-width:575px){
+    #Logo_Body_Login{width: 80%}
+} 
+@media(max-width:385px){
+    #Logo_Body_Login{ width: 80%}
+
+    .containerBodylogin{
+        width: 100%;
+        height: 460px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    .infoRegistroLogin{text-align: center;}
+    .textIniciarSesion{font-size: 28px;}
+} 

@@ -1,0 +1,1 @@
+Carpeta para todas las páginas de la aplicación. 
