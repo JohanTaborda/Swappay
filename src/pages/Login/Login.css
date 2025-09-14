@@ -86,7 +86,7 @@
     justify-content: center;
 }
 
-#BtnWelcome{  /* se le hace el diseño al boton ingresar*/
+.BtnWelcome{  /* se le hace el diseño al boton ingresar*/
     background-color: #3c6fb6;
     color: white; 
     border: none;
@@ -101,7 +101,7 @@
     align-items: center;
 }
 
-#BtnWelcome:hover{ /* Efecto hover para el botón de registro */
+.BtnWelcome:hover{ /* Efecto hover para el botón de registro */
     background-color: #2e67b8;
 }
 

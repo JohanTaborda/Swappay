@@ -9,10 +9,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import 'react-toastify/dist/ReactToastify.css'; //Importamos los estilos de los Toast
 
-import Main from './modules/layouts/main/Main'; //Importamos el componente principal
+import AppRoutes from './App/routes/AppRoutes';
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter> 
-      <Main />
+      <AppRoutes />
     </BrowserRouter>
 )
