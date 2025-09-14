@@ -1,1 +1,0 @@
-En este modulo, se crea la validación para mostrar ya sea el componente de Login o el componente de Register.

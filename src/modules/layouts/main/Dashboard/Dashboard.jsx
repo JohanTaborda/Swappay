@@ -3,9 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import { FaShoppingCart, FaExchangeAlt, FaGraduationCap } from "react-icons/fa";
 import logoSwappay from "../../../../resources/images/Designer.png";
-import Auth from "../../../Auth/Auth";
 
-const Dashboard = ({ setChangeComponent }) => {
+const Dashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -30,7 +29,7 @@ const Dashboard = ({ setChangeComponent }) => {
                             hacer intercambios útiles y aprender nuevas habilidades.
                         </p>
                         <div className="buttonsHero">
-                            <a href="#" className="btnStart"> Empezar</a>
+                            <a onClick={() => navigate("/ingresar")} style={{cursor:"pointer"}} className="btnStart"> Empezar</a>
                             <a href="#" className="btnGuide"> Ver Cómo Funciona</a>
                         </div>
                     </div>
@@ -87,10 +86,6 @@ const Dashboard = ({ setChangeComponent }) => {
                 </footer>
             </div>
 
-            {/* Mostrar el modal de login si la ruta es /ingresar */}
-            {location.pathname === "/ingresar" && (
-                <Auth setChangeComponent={setChangeComponent} onClose={() => navigate("/")} />
-            )}
         </div>
     )
 }

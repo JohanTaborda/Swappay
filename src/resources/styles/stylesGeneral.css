@@ -13,8 +13,14 @@
     user-select: none;
 }
 
-/*Estilos Generales para las ventanas Emergentes*/
+* {/* Reset */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+
+/*Estilos Generales para las ventanas Emergentes*/
 .overlayGeneral{ /*Estilos para el overlay*/
     position: fixed; 
     top: 0; 

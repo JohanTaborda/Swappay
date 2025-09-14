@@ -11,11 +11,11 @@ import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la 
 import { useNavigate } from "react-router-dom";
 import api from "../../service/axiosConfig";
 
-// Recibe dos props: setVisLogin y setVisAuth para controlar la visibilidad de pantallas de login y autenticación.
-const Register = ({setVisLogin, setVisAuth}) => {
+const Register = () => {
 
     const navigate = useNavigate();
-    const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
+    const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana}
+    const [userRegister, setUserRegister] = useState(false);
     
     // Configuramos el hook useForm de react-hook-form, register -> registra inputs
     // handleSubmit -> maneja el envío del formulario, watch -> observa cambios en los campos, errors -> contiene errores de validación
@@ -24,15 +24,15 @@ const Register = ({setVisLogin, setVisAuth}) => {
     const onSubmit = async (formData) => { // Función que se ejecuta al enviar el formulario
 
         const { password, confirmPassword, firstName, lastName, email, city} = formData;
-      
+
+
         //Validamos que las contraseñas coincidan.
         if (password !== confirmPassword) {
-          toast.error("Las contraseñas no coinciden");
-          return;
+            toast.error("Las contraseñas no coinciden.", {position: "top-center"});
+            return;
         }
 
         try {
-            
             await api.post("/users", {
                 username: `${firstName} ${lastName}`,
                 city,
@@ -41,26 +41,28 @@ const Register = ({setVisLogin, setVisAuth}) => {
             })
 
             toast.success("¡Registro completado!", {position: "top-center"});
+            setUserRegister(true);
 
             setTimeout(() => {
                 navigate("/ingresar")
             }, 2000);
+            
         } catch (error) {
-            console.log(error)
+        // Intenta obtener el mensaje del backend
+            const mensaje =
+                error.response?.data?.message || // Para errores como "El email ya está registrado"  
+                "Error al registrar usuario";    
+
+            toast.error(mensaje, {position:"top-center"});
+            console.error('Error al registrar usuario:', error);
         }
-
-        
-
  
     }
     
     useEffect(() => { // useEffect se encarga de escuchar los errores del formulario y mostrar mensajes con Toast
-        if (errors.firstName?.type === "required") toast.error("El nombre es obligatorio");
-        if (errors.lastName?.type === "required") toast.error("El apellido es obligatorio");
-        if (errors.email?.type === "required") toast.error("El correo es obligatorio.");
-        if (errors.city?.type === "required") toast.error("La ciudad es obligatoria.");
-        if (errors.password?.type === "required") toast.error("La contraseña es obligatoria");
-        if (errors.confirmPassword?.type === "required") toast.error("La confirmación de contraseña es obligatoria.");
+        if (Object.keys(errors).length > 0) {
+            toast.error("Te faltan campos por llenar.", {position: "top-center", autoClose: 2000});
+        }
     }, [errors]);
 
     return(
@@ -95,7 +97,7 @@ const Register = ({setVisLogin, setVisAuth}) => {
                             
                         <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
 
-                        <button  type="submit"  className="btnRegister"  >
+                        <button  type="submit" disabled={userRegister} className="btnRegister">
                             Regístrate
                         </button>
                     </form>
@@ -106,7 +108,7 @@ const Register = ({setVisLogin, setVisAuth}) => {
 
             </div>
             <div>
-                <ToastContainer position="bottom-right" autoClose={2000} hideProgressBar={false} closeOnClick pauseOnHover draggable/>  {/*Paneles informativos de la aplicación.*/}
+                <ToastContainer position="bottom-right" autoClose={2000} hideProgressBar={false} closeOnClick pauseOnHover draggable/> {/*Paneles informativos de la aplicación.*/}
             </div>
         </div>
     )

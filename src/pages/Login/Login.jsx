@@ -1,6 +1,5 @@
 import {useState, useEffect} from "react";
 import "./Login.css" //Importamos los estilos del Login 
-import data from "./Login.json" //Importamos el JSON con los datos quemados para pruebas.
 
 //Importamos Toast para los paneles informativos.
 import { toast } from 'react-toastify';
@@ -10,16 +9,14 @@ import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la 
 import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/axiosConfig";
-/* Recibimos mediante props: 
-setChangeComponent: Cambia cuando se inicia sesión, muestra el dashboard o panel informativo.
-setVisLogin: Permite alternar la visibilidad del Login y Registro, este cambia cuando se le da al botón de 'Registrarse'
-setVisAuth: Alterna la visibilidad del Login, para ocultar cuando se le de clic al icono de 'Close'*/
-const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
+
+const Login = () => {
 
     const navigate= useNavigate();
     const [email, setEmail] = useState(""); //Variable que almacena el email digitado en el imput
     const [password, setPassword] = useState("");//Variable que almacena la contraseña digitada en el imput
     const [visPassword, setVisPassowrd] = useState(false);
+    const [changeLogin, setChangeLogin] = useState(false)
     
     const iconClose = () => <IoClose className="iconClose" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
     const viewPassword = () => <IoMdEye color="#525151ff"/>
@@ -30,7 +27,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
 
         // Validación básica de campos vacíos
         if (!email.trim() || !password.trim()) {
-            toast.error("Correo y contraseña obligatorios", {position: "top-right",autoClose: 2000,hideProgressBar: false,closeOnClick: true,
+            toast.error("Correo y contraseña obligatorios", {position: "top-center",autoClose: 2000,hideProgressBar: false,closeOnClick: true,
                 pauseOnHover: true,draggable: true, progress: undefined,});
             return;
         }
@@ -45,6 +42,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
             const data = response.data;
 
             console.log(data)
+            setChangeLogin(true);
 
             toast.success(`¡Bienvenid@! ${data.username}`, { position: "top-center",autoClose: 1500,hideProgressBar: false,closeOnClick: true,
             pauseOnHover: true,draggable: true,progress: undefined,});
@@ -54,7 +52,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
             }, 2000);
             
         } catch (error) {
-            console.log(`errores: ${error}`)
+            toast.error(error.response?.data?.message || "Error al iniciar sesión", {position:"top-center"});
         }
 
     };
@@ -84,7 +82,7 @@ const Login = ({setChangeComponent, setVisLogin, setVisAuth}) => {
                             </div>
                         </div>
                         <div className="btnLoginWelcome">
-                            <button id="BtnWelcome">Ingresar</button> {/*Botón que llama la función de handleSubmit para el inicio de sesión*/}
+                            <button className="BtnWelcome" disabled={changeLogin}>Ingresar</button> {/*Botón que llama la función de handleSubmit para el inicio de sesión*/}
                         </div>
                         <div >
                             <hr style={{border: 'none', borderTop: '1px solid #000', margin: '0 0'}} />
