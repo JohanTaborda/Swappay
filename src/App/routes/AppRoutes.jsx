@@ -1,32 +1,39 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom"; //Importamos el contenedor y las rutas para habilitarlas en la aplicación.
+
+//Secciones correspondientes a mostrar según la ruta.
 import Dashboard from "../../modules/layouts/main/Dashboard/Dashboard.jsx"
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Register/Register";
 import MainPanel from "../../modules/layouts/main/MainPanel/MainPanel.jsx";
-import ProtectedRouters from "./ProtectedRoutes";
+import ProtectedRouters from "./ProtectedRoutes"; //Importamos el componente para la validación de las rutas protegidas.
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route path="/" element={<Dashboard/>}></Route>
-            <Route path="/ingresar" element={
+            <Route path="/" element={<Dashboard/>}></Route> {/*Ruta raiz*/}
+            <Route path="/ingresar" element={ //Ruta para mostrar el componente para iniciar sesión.
                 <>
                     <Dashboard/>
                     <Login />
                 </>}>   
             </Route>
-            <Route path="/registro" element={
+            <Route path="/registro" element={ //Ruta para mostrar el componente de registro
                 <>
                     <Dashboard/>
                     <Register />
                 </>}>   
             </Route>
-            <Route path="/panel" element={
-                    <ProtectedRouters>
-                        <MainPanel/>
-                    </ProtectedRouters>
-                }>
-            </Route>
+            {["/panel", "/configuracion", "/ofertas", "/intercambios"].map((path) => (
+                <Route
+                    key={path}
+                    path={path}
+                    element={
+                        <ProtectedRouters> {/*Se manejan rutas protegidas para validaciones con token de usuario.*/}
+                            <MainPanel />
+                        </ProtectedRouters>
+                    }
+                />
+            ))}
             
         </Routes>
     );

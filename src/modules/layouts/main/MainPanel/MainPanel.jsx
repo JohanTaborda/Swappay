@@ -1,16 +1,30 @@
 import {useState, useEffect} from "react";
+import { useLocation } from "react-router-dom"; //Importamos useLocation para validar rutas.
 
-import MainHeader from "./components/MainHeader/MainHeader";
+import MainHeader from "./components/MainHeader/MainHeader"; //Importamos el componente General que siempre se mostrara.
+
+//Importamos los componentes que cambiaran según la ruta existente.
 import MainData from "./components/MainData/MainData";
+import Configuration from "../../../../pages/Configuration/Configuration.jsx";
+import Offers from "../../../../pages/Offers/Offers.jsx";
+import Exchanges from "../../../../pages/Exchanges/Exchanges.jsx";
 
 const MainPanel = () =>{
+    const location = useLocation(); //Usamos el hook de useLocation para ver la ubicación actual.
+    let contentSection; //Variable que almacena el componente a renderizar según la ruta en el pathname.
 
-    return(
+    //Condicionales que validan que componente mostrar según la opción.
+    if (location.pathname === '/configuracion') contentSection = <Configuration/>;
+    else if (location.pathname === '/ofertas') contentSection = <Offers/>;
+    else if (location.pathname === '/intercambios') contentSection = <Exchanges/>;
+    else contentSection = <MainData/>;
+
+    return (
         <div>
-            <MainHeader/>
-            <MainData/>
+            <MainHeader />
+            {contentSection}
         </div>
-    )
+    );
 }
 
 export default MainPanel;
