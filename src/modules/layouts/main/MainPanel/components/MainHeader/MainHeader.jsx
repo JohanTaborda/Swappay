@@ -7,10 +7,10 @@ import { BsCoin } from "react-icons/bs"; //Importamos el icono usado para los sw
 import Avatar from '@mui/material/Avatar'; //Componente para el perfil del usuario
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Settings from '@mui/icons-material/Settings';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Logout from '@mui/icons-material/Logout';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PersonIcon from '@mui/icons-material/Person';
 
 import { useNavigate, useLocation } from "react-router-dom"; //Usamos router-dom para validación y manejo de rutas.
 
@@ -48,6 +48,12 @@ const MainHeader = () => {
         navigate(refNavigate)
     }
 
+    useEffect(() => { //Hook que controla el enfoque de las secciones según la ruta correspondiente.
+        if(location.pathname === "/panel") setButtonSelected("Panel");
+        else if(location.pathname === "/ofertas") setButtonSelected("Ofertas");
+        else if(location.pathname === "/intercambios") setButtonSelected("Intercambios");
+    }, [])
+
     return (
         <div className="container_Header_panel">
             <section className="sections_header">
@@ -61,7 +67,10 @@ const MainHeader = () => {
             <section className="sections_header">
                 <div className="swapCoin_header">
                     {bsCoin()} {/*Icono de los swapcoins */}
-                    <div className="info_swapcoin">Mis Swapcoins: {0}</div>
+                    <div className="info_swapcoin">
+                        <div className="text_swapcoins">Mis Swapcoins:</div>
+                        <div className="value_swapcoins">{0}</div>
+                    </div>
                 </div>
                 <Avatar
                     className="profile_user_header"
@@ -69,16 +78,16 @@ const MainHeader = () => {
                     onClick={handleAvatarClick} //Al darle clic, se despliega el menu con las opciones.
                 />
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}> {/*Menu con la lista de opciones por parte del usuario.*/}
-                    <MenuItem onClick={() => setAnchorEl(null)} style={{fontFamily:"Outfit"}}>
-                        <ListItemIcon><LibraryBooksIcon/></ListItemIcon>
-                        Mis publicaciones
+                    <MenuItem onClick={() => userAction('/perfil')} style={{fontFamily:"Outfit"}}>
+                        <ListItemIcon><PersonIcon/></ListItemIcon>
+                        Mi perfil
                     </MenuItem>
-                    <MenuItem onClick={() => userAction('/configuracion')} style={{fontFamily:"Outfit"}} >
-                        <ListItemIcon><Settings/></ListItemIcon>
-                        Configuración
+                    <MenuItem onClick={() => setAnchorEl(null)} style={{fontFamily:"Outfit"}} >
+                        <ListItemIcon><HelpOutlineIcon/></ListItemIcon>
+                        Ayuda
                     </MenuItem>
-                    <MenuItem onClick={() => userAction('/')} style={{fontFamily:"Outfit"}}>
-                        <ListItemIcon><Logout/></ListItemIcon>
+                    <MenuItem onClick={() => userAction('/')} style={{fontFamily:"Outfit", color:"#f76b6bff"}}>
+                        <ListItemIcon><Logout style={{color:"#f76b6bff"}}/></ListItemIcon>
                         Cerrar Sesión
                     </MenuItem>
                 </Menu>

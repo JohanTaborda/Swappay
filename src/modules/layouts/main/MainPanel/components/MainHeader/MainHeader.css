@@ -52,6 +52,9 @@
 }
 
 .info_swapcoin{
+    display: flex;
+    align-items: center;
+    gap: 3px;
     opacity: 1;
     color: #000;
     font-weight: 500;
@@ -105,4 +108,5 @@
 @media (max-width: 371px) {
     .title_header{display: none;}
     .sections_header a{font-size: 20px;}
+    .text_swapcoins{display: none;}
 }

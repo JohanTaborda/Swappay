@@ -3,6 +3,8 @@ import "./Register.css" //Importamos los estilos del componente
 
 import { useForm } from "react-hook-form" // Importamos react-hook-form para el manejo de formularios
 
+import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
+
 //Importamos Toast para los paneles informativos.
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
@@ -14,8 +16,13 @@ import api from "../../service/axiosConfig";
 const Register = () => {
 
     const navigate = useNavigate();
+    
+    const viewPassword = () => <IoMdEye color="#525151ff"/>
+    const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/>
+
     const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana}
     const [userRegister, setUserRegister] = useState(false);
+    const [visPassword, setVisPassowrd] = useState(false);
     
     // Configuramos el hook useForm de react-hook-form, register -> registra inputs
     // handleSubmit -> maneja el envío del formulario, watch -> observa cambios en los campos, errors -> contiene errores de validación
@@ -71,7 +78,7 @@ const Register = () => {
                 <div className="containerLogo">
                     <img src="src\resources\images\Designer.png" alt="Logo" className="imgLogo"/> {/*Logo de la aplicación*/}
                     <h1 className="textWelcome">Bienvenid@</h1> 
-                    <p className="textDescriptionLogin">Vende, intercambia y aprende en la plataforma que conecta personas con oportunidades.</p>
+                    <p className="textDescriptionLogin">Accede a ofertas, intercambia productos y gana monedas en una  plataforma que conecta personas con oportunidades.</p>
                 </div>
                 
                 <section className="containerBodyRegister">
@@ -92,9 +99,11 @@ const Register = () => {
                        
                         <input {...register("city", { required: true, minLength: {value: 3, message: "Minimo 3 Caracteres" }})} minLength={3} title="Mínimo 3 caracteres" placeholder="Escribe tu ciudad" type="text" className={`form--input ${errors.city ? "input-error" : ""}`}/> {/* Validamos el correo electrónico */}
 
-                        <input   {...register("password", { required: "La contraseña es obligatoria", minLength: {value: 6, message: "Minimo 6 Caracteres" }})} minLength={6} title="Mínimo 6 caracteres"
-                            placeholder="Contraseña"  type="password"  className={`form--input ${errors.password ? "input-error" : ""}`}/> {/* Validamos la contraseña */}
-                            
+                        <div style={{position:"relative", width:"85%"}}>
+                            <span onClick={() => setVisPassowrd(!visPassword)} className="eyeViewPassword">{!visPassword ? viewOffPassword() : viewPassword()}</span>
+                            <input   {...register("password", { required: "La contraseña es obligatoria", minLength: {value: 6, message: "Minimo 6 Caracteres" }})} minLength={6} title="Mínimo 6 caracteres"
+                            placeholder="Contraseña"  type={!visPassword ? "password" : "text"}  className={`form--input ${errors.password ? "input-error" : ""}`} id="input_register_password"/> {/* Validamos la contraseña */}
+                        </div>
                         <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
 
                         <button  type="submit" disabled={userRegister} className="btnRegister">

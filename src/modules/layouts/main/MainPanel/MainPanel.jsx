@@ -5,6 +5,7 @@ import MainHeader from "./components/MainHeader/MainHeader"; //Importamos el com
 
 //Importamos los componentes que cambiaran según la ruta existente.
 import MainData from "./components/MainData/MainData";
+import Profile from "../../../../pages/Profile/Profile.jsx";
 import Configuration from "../../../../pages/Configuration/Configuration.jsx";
 import Offers from "../../../../pages/Offers/Offers.jsx";
 import Exchanges from "../../../../pages/Exchanges/Exchanges.jsx";
@@ -14,7 +15,7 @@ const MainPanel = () =>{
     let contentSection; //Variable que almacena el componente a renderizar según la ruta en el pathname.
 
     //Condicionales que validan que componente mostrar según la opción.
-    if (location.pathname === '/configuracion') contentSection = <Configuration/>;
+    if (location.pathname === '/perfil') contentSection = <Profile/>;
     else if (location.pathname === '/ofertas') contentSection = <Offers/>;
     else if (location.pathname === '/intercambios') contentSection = <Exchanges/>;
     else contentSection = <MainData/>;

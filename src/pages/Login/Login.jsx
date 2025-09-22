@@ -63,7 +63,7 @@ const Login = () => {
                 <div className="containerLogo">
                     <img src="src\resources\images\Designer.png" alt="Logo" className="imgLogo"/> {/*Logo de la aplicación*/}
                     <h1 className="textWelcome">Bienvenid@</h1> 
-                    <p className="textDescriptionLogin">Vende, intercambia y aprende en la plataforma que conecta personas con oportunidades.</p>
+                    <p className="textDescriptionLogin">Accede a ofertas, intercambia productos y gana monedas en una  plataforma que conecta personas con oportunidades.</p>
                 </div>
                 
                 <section className="containerBodylogin">

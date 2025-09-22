@@ -23,7 +23,7 @@ const AppRoutes = () => {
                     <Register />
                 </>}>   
             </Route>
-            {["/panel", "/configuracion", "/ofertas", "/intercambios"].map((path) => (
+            {["/panel", "/perfil", "/ofertas", "/intercambios"].map((path) => (
                 <Route
                     key={path}
                     path={path}

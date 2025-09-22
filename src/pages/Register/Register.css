@@ -93,6 +93,7 @@
     background-color: #ffe6e6;
 }
 
+#input_register_password{width: 100%;}
 
 @media(max-width: 811px){
     .containerLogo{display: none;}
@@ -125,3 +126,4 @@
         height: 480px;
     }
 } 
+
