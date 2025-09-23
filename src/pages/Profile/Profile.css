@@ -1,0 +1,28 @@
+.container_profile_user {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    min-height: calc(100vh - 80px);
+    padding: 40px 20px;
+    background: linear-gradient(190deg, #ffffff, #7da0ca, #052759);
+    position: relative;
+    overflow-x: auto;
+}
+
+.header_general_user {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 772px) {
+    .container_profile_user{
+        display: flex;
+        flex-direction: column;
+        justify-content:left;
+        align-items: center;
+        margin: 0;
+        gap: 20px;
+        min-height: calc(100vh - 50px);
+        overflow-y: auto;
+    }
+}
+
