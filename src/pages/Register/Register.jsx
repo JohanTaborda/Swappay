@@ -148,7 +148,7 @@ const Register = () => {
 
                         <div style={{position:"relative", width:"85%"}}>
                             <span onClick={() => setVisConfirmPassowrd(!visConfirmPassword)} className="eyeViewPassword">{!visConfirmPassword ? viewOffPassword() : viewPassword()}</span>
-                            <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type={!visConfirmPassword ? "password" : "text"} id="input_register_password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
+                            <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type={!visConfirmPassword ? "password" : "text"} id="input_Confirm_register_password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
                         </div>
 
                         <button  type="submit" disabled={userRegister} className="btnRegister">
