@@ -31,7 +31,7 @@ const Register = () => {
     useEffect(() => { //Hook para hacer una petición al backend y obtener la lista de paises.
         const obtainCountry = async() => {
             try {
-                const {data} = await api.get("/auth/countries");
+                const {data} = await api.get("/users/countries");
                 setCities(data);
                 setLoading(false)
             } catch (error) {
