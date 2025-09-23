@@ -93,6 +93,7 @@
         width: 32px !important;
         height: 32px !important;
     }
+
 }
 
 
@@ -103,10 +104,10 @@
         padding: 10px;
         gap: 10px;
     }
+    .text_swapcoins{display: none;}
 }
 
 @media (max-width: 371px) {
     .title_header{display: none;}
     .sections_header a{font-size: 20px;}
-    .text_swapcoins{display: none;}
 }
