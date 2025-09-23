@@ -4,7 +4,7 @@ const MainData = () =>{
 
     return(
         <div>
-            Espacio para trabajar el data.
+            Espacio para trabajar el panel principal.
         </div>
     )
 }
