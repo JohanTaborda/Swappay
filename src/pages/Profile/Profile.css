@@ -1,6 +1,6 @@
 .container_profile_user {
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 2fr 5fr;
     min-height: calc(100vh - 80px);
     padding: 40px 20px;
     background: linear-gradient(190deg, #ffffff, #7da0ca, #052759);

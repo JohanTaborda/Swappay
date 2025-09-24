@@ -12,6 +12,7 @@ const InfoPersonal = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const[sectionSelected, setSectionSelected] = useState("Sobre mi"); //Estado que cambia según la sección seleccionada a mostrar.
+    const[visButtonConfig, setVisButtonConfig] = useState(true);
 
     const stringAvatar = (name) => { //Función que permite mostrar N cantidad de letras [1 o 2] en la imagen de perfil, según el nombre de usuario.
         const parts = name.split(" ");
@@ -33,6 +34,11 @@ const InfoPersonal = () => {
         if (location.pathname === "/perfil")setSectionSelected("Sobre mi");
         else if (location.pathname === "/perfil/publicaciones") setSectionSelected("Mis publicaciones");
         else setSectionSelected("")
+    }, [location.pathname]);
+
+    useEffect(() => { 
+        if (location.pathname === "/perfil/configuracion")setVisButtonConfig(false);
+        else setVisButtonConfig(true);
     }, [location.pathname]);
 
 
@@ -59,7 +65,9 @@ const InfoPersonal = () => {
                 </h5>
             </section>
             <section className="action_edit_profile">
-                <button onClick={() => navigate('/perfil/editar-perfil')} className="button_edit_profile">Editar perfil</button>
+                {visButtonConfig && (
+                    <button onClick={() => navigate('/perfil/configuracion')} className="button_edit_profile">Configuración</button>
+                )}
             </section>
         </div>
     )

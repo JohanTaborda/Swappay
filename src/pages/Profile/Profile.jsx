@@ -18,7 +18,7 @@ const Profile = () => {
     //Condicionales que permiten activar el componente necesario según la ruta del usuario.
     if (location.pathname === '/perfil') viewSection = <AboutMe/>;
     else if (location.pathname === '/perfil/publicaciones') viewSection = <Publications/>;
-    else if (location.pathname === '/perfil/editar-perfil') viewSection = <Configuration/>;
+    else if (location.pathname === '/perfil/configuracion') viewSection = <Configuration/>;
 
     return(
         <>

@@ -42,7 +42,7 @@ const AppRoutes = () => {
             ))}
 
             {/*Rutas para el componente de perfil.*/}
-            {["/perfil/publicaciones", "/perfil/editar-perfil"].map((path) => (
+            {["/perfil/publicaciones", "/perfil/configuracion"].map((path) => (
                 <Route
                     key={path}
                     path={path}
