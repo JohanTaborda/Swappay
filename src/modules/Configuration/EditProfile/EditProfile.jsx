@@ -65,6 +65,12 @@ const EditProfile = () => {
         }
     };
 
+    const changeEditButton = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setEditProfile(!editProfile);
+    }
+
     return (
         <form onSubmit={handleSubmit(submitProfile)} className="form_config_profile">
             <Typography variant="h6" sx={{ fontFamily: "Outfit" }}>Edición de Perfil</Typography>
@@ -123,8 +129,8 @@ const EditProfile = () => {
                     {success ? "Guardando..." : "Guardar cambios"}
                 </Button>
             ) : (
-                <Button variant="contained" onClick={() => setEditProfile(!editProfile)} sx={{ mt: 2 }} className="button-editProfile">
-                    Editar Perfil
+                <Button variant="contained" type="button" onClick={changeEditButton} sx={{ mt: 2 }} className="button-editProfile">
+                    Editar perfil
                 </Button>
             )}
 

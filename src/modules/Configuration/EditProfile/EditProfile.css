@@ -25,3 +25,14 @@
 .inputs_edit_profile{
     font-family: "Outfit" !important;
 }
+
+@media(max-width: 500px){
+    .inputs_form_profile{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button-editProfile{
+        width: 100%;
+    }
+}

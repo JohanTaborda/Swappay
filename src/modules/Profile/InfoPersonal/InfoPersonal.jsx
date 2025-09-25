@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom"; //Activamos la nave
 import Avatar from '@mui/material/Avatar'; //Componente para el perfil del usuario
 import Rating from '@mui/material/Rating'; //Componente para la calificación del usuario.
 import Stack from '@mui/material/Stack'; //Componente de layout para organizar las estrellas del usuario.
+import { Tooltip } from "@mui/material";
 
 const InfoPersonal = () => {
 
@@ -13,6 +14,7 @@ const InfoPersonal = () => {
     const location = useLocation();
     const[sectionSelected, setSectionSelected] = useState("Sobre mi"); //Estado que cambia según la sección seleccionada a mostrar.
     const[visButtonConfig, setVisButtonConfig] = useState(true);
+    const[avatarSrc, setAvatarSrc] = useState(null); // Estado para la imagen del avatar
 
     const stringAvatar = (name) => { //Función que permite mostrar N cantidad de letras [1 o 2] en la imagen de perfil, según el nombre de usuario.
         const parts = name.split(" ");
@@ -41,15 +43,30 @@ const InfoPersonal = () => {
         else setVisButtonConfig(true);
     }, [location.pathname]);
 
+    const handleAvatarChange = (event) => {
+        const file = event.target.files?.[0];
+        if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setAvatarSrc(reader.result);
+        };
+        reader.readAsDataURL(file);
+        }
+    };
+
+    const handleAvatarClick = () => {
+        document.getElementById('avatar-input').click();
+    };
 
     return(
         <div className="container_info_profile">
             <section className="Profile_photo">
-                <Avatar
-                    className="photo_user"
-                    {...stringAvatar('Johan Taborda')} //En el Avatar del perfil, se muestran las iniciales del nombre.
-                />
+                <Tooltip title="Cambiar foto de perfil" arrow>
+                    <Avatar className="photo_user" src={avatarSrc} {...(!avatarSrc && stringAvatar("Johan Taborda"))}onClick={handleAvatarClick} style={{ cursor: "pointer" }} />
+                </Tooltip>
+                <input id="avatar-input"type="file"accept="image/*"onChange={handleAvatarChange}style={{ display: "none" }}/>
             </section>
+
             <section className="navigate_sections_profile">
                 {valueSections.map((value, index) => (
                     <a key={index} onClick={() => changeSection(value.name, value.href)} id={sectionSelected === value.name ? "equal_option_selected" : ""}>{value.name}</a>

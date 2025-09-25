@@ -1,10 +1,12 @@
 import {useState, useEffect} from "react";
 import "./Configuration.css"
 
-import { Paper, Tabs, Tab, Box, Typography, TextField, Button, Avatar, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { Paper, Tabs, Tab, Box} from '@mui/material';
 
 
 import EditProfile from "../../modules/Configuration/EditProfile/EditProfile";
+import ChangePassword from "../../modules/Configuration/ChangePassword/ChangePassword";
+import DeleteProfile from "../../modules/Configuration/DeleteProfile/DeleteProfile";
 
 const Configuration = () => {
 
@@ -21,7 +23,6 @@ const Configuration = () => {
                 <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth" scrollButtons="auto">
                     <Tab className='titleTabs' label="Perfil" />
                     <Tab className='titleTabs' label="Contraseña" />
-                    <Tab className='titleTabs' label="Imagen de perfil" />
                     <Tab className='titleTabs' label="Eliminar cuenta" />
                 </Tabs>
 
@@ -31,27 +32,11 @@ const Configuration = () => {
                     )}
                     
                     {tabValue === 1 && (
-                        <div>
-                            <Typography variant="h6">Cambiar Contraseña</Typography>
-                            <TextField fullWidth label="Contraseña Actual" type="password" margin="normal" />
-                            <TextField fullWidth label="Nueva Contraseña" type="password" margin="normal" />
-                            <Button variant="contained" sx={{ mt: 2 }}>Actualizar</Button>
-                        </div>
+                        <ChangePassword/>
                     )}
                     
                     {tabValue === 2 && (
-                        <div>
-                            <Typography variant="h6">Imagen de Perfil</Typography>
-                            <Avatar sx={{ width: 100, height: 100, mb: 2 }} />
-                            <Button variant="contained">Subir Imagen</Button>
-                        </div>
-                    )}
-                    
-                    {tabValue === 3 && (
-                        <div>
-                            <Typography variant="h6" color="error">Eliminar Cuenta</Typography>
-                            <Button variant="contained" color="error">Eliminar</Button>
-                        </div>
+                        <DeleteProfile/>
                     )}
                 </Box>
             </Paper>
