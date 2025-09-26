@@ -1,39 +1,39 @@
 import {useState, useEffect} from "react";
 import "./ChangePassword.css"
 
-import { useForm } from "react-hook-form";
-import { ToastContainer, toast } from 'react-toastify';
-import {Typography, TextField, Button, InputAdornment} from '@mui/material';
+import { useForm } from "react-hook-form"; //Importamos el hook para manejar la información del formulario.
+import { ToastContainer, toast } from 'react-toastify'; //Importamos toast para sacar los push con mensajes informativos.
+import {Typography, TextField, Button, InputAdornment} from '@mui/material'; //Importamos componentes a utilizar de MaterialUI
 
-import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
-import api from "../../../service/axiosConfig";
+import { IoMdEye, IoMdEyeOff  } from "react-icons/io"; //Importamos iconos para las contraseñas.
+import api from "../../../service/axiosConfig"; //Importamos API para comunicarnos con el backend.
 
 const ChangePassword = () => {
 
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-    const [showNewPassword, setShowNewPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false); //Estado que permite la visualización de la contraseña actual.
+    const [showNewPassword, setShowNewPassword] = useState(false);//Estado que permite la visualización de la nueva contraseña.
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);//Estado que permite la visualización de la confirmación de la nueva contraseña.
 
-    const viewPassword = () => <IoMdEye color="#525151ff" fontSize={"22px"}/>
-    const viewOffPassword = () => <IoMdEyeOff color="#525151ff" fontSize={"22px"}/>
+    const viewPassword = () => <IoMdEye color="#525151ff" fontSize={"22px"}/> //Manejamos los iconos como funciones para mayor claridad. Icono para visualizar la contraseña.
+    const viewOffPassword = () => <IoMdEyeOff color="#525151ff" fontSize={"22px"}/>//Manejamos los iconos como funciones para mayor claridad. Icono para ocultar la contraseña.
 
-    const { register, handleSubmit, control } = useForm();
+    const { register, handleSubmit, control } = useForm(); //Usamos las funciones que nos trae el hook de useForm, para el manejo de formulario.
 
-    const onSubmit = (formData) => {
-        const {currentPassword, newPassword, confirmPassword} = formData;
+    const onSubmit = (formData) => { //Función que se llama cuando se envia el formulario
+        const {currentPassword, newPassword, confirmPassword} = formData; //Desestructuramos el objeto con la contraseña del usuario.
 
         //Validamos que las contraseñas coincidan.
-        if (newPassword !== confirmPassword) {
-            toast.error("Las contraseñas no coinciden.", {position: "top-center"});
+        if (newPassword !== confirmPassword) { //Si la contraseña nueva y la de confirmación son diferentes, me saca un toast indicando el error.
+            toast.error("Las contraseñas no coinciden.", {position: "top-center"}); //Toast informativos.
             return;
         }
 
-        console.log(currentPassword, newPassword, confirmPassword)
+        console.log(currentPassword, newPassword, confirmPassword) //Mostramos las contraseñas por consola.
     }
 
     return(
         <>
-            <form onSubmit={handleSubmit(onSubmit)} className="form_config_profile">
+            <form onSubmit={handleSubmit(onSubmit)} className="form_config_profile"> {/*Usamos formulario para el menejo de las contraseñas*/}
                 <Typography variant="h6" style={{fontFamily:"Outfit"}}>Cambiar Contraseña</Typography>
                 
                 <TextField 

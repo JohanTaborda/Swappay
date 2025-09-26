@@ -26,3 +26,6 @@
     }
 }
 
+@media (max-width: 1250px) {
+    .container_profile_user{gap: 20px;}
+}

@@ -41,3 +41,11 @@
 .button-create-publications-profile:hover{
     transform: translateY(-1px);
 }
+
+@media(max-width: 773px){
+    .info_publications_profile{font-size: 18px;}
+    .container_publications_profile{ width: 320px;}
+    .title_publications_profile{text-align: center;}
+} 
+
+

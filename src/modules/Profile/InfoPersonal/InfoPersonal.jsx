@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom"; //Activamos la nave
 import Avatar from '@mui/material/Avatar'; //Componente para el perfil del usuario
 import Rating from '@mui/material/Rating'; //Componente para la calificación del usuario.
 import Stack from '@mui/material/Stack'; //Componente de layout para organizar las estrellas del usuario.
-import { Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material"; //Componente de Tooltip para la iamgen de perfil.
 
 const InfoPersonal = () => {
 
@@ -38,12 +38,12 @@ const InfoPersonal = () => {
         else setSectionSelected("")
     }, [location.pathname]);
 
-    useEffect(() => { 
-        if (location.pathname === "/perfil/configuracion")setVisButtonConfig(false);
+    useEffect(() => { //Efecto que permite visualizar el botón de configuración según la ruta actual.
+        if (location.pathname === "/perfil/configuracion") setVisButtonConfig(false);
         else setVisButtonConfig(true);
     }, [location.pathname]);
 
-    const handleAvatarChange = (event) => {
+    const handleAvatarChange = (event) => { //Función que permite cambiar la foto de perfil por una imagen.
         const file = event.target.files?.[0];
         if (file) {
         const reader = new FileReader();
@@ -54,7 +54,7 @@ const InfoPersonal = () => {
         }
     };
 
-    const handleAvatarClick = () => {
+    const handleAvatarClick = () => { //Función que se llama cuando se le da clic al avatar, disparando el input oculto.
         document.getElementById('avatar-input').click();
     };
 

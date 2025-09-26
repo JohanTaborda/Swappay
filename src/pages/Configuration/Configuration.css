@@ -15,6 +15,14 @@
     .inputs_form_profile{
         display: flex;
         flex-direction: column;
+    }
+    .container_general_configuration{
+        width: 322px;
+    }
+}
 
+@media(max-width: 860px){
+    .container_box_configuration {
+        height: 450px !important;
     }
 }

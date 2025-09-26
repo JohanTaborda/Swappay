@@ -1,0 +1,110 @@
+.container_aboutme{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 510px;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.grid_template_infoUser{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 20px;
+}
+
+.section_info_aboutme{
+    display: flex;
+    align-items: center;
+    border-left: 8px solid #285194;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    padding-left: 10px;
+    height: 50px;
+}
+
+.title_info_aboutme{
+    font-family: "Outfit";
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.title_section_aboutme{
+    font-family: "Outfit";
+    margin: 5px 0 20px 0;
+}
+
+#title_section_swapcoins{
+    margin-top: 20px;
+}
+
+.swapcoins_progress_container {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+}
+
+.swapcoins_progress_label {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    font-family: "Manrope", sans-serif;
+    font-size: 14px;
+    color: #555;
+}
+
+.swapcoins_progress_bar {
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.swapcoins_progress_fill {
+    height: 100%;
+    background-color: #285194;
+    border-radius: 6px;
+    transition: width 0.3s ease;
+}
+
+.swapcoins_tasks_list {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #b3b0b0;
+    border-radius: 8px;
+}
+
+.swapcoins_task {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #b3b0b0;
+}
+
+.swapcoins_task input {
+    margin-right: 10px;
+}
+
+.swapcoins_task span {
+    font-family: "Manrope", sans-serif;
+    flex-grow: 1;
+}
+
+.task_reward {
+    flex-grow: 0 !important;
+    color: #1a73e8;
+    font-weight: bold;
+    margin-left: 15px;
+    font-family: "Outfit" !important;
+}
+
+
+@media (max-width: 500px) {
+    .grid_template_infoUser{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+}
