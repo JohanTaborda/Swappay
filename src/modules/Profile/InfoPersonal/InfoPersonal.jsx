@@ -86,7 +86,6 @@ const InfoPersonal = () => {
                     <button onClick={() => navigate('/perfil/configuracion')} className="button_edit_profile">Configuración</button>
                 )}
             </section>
-        </div>
     )
 }
 
