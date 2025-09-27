@@ -1,0 +1,51 @@
+.container_publications_profile{
+    display: flex;
+    flex-direction: column;
+    height: 510px;
+    background-color: rgb(255, 255, 255);
+    opacity: 0.8;
+    border-radius: 8px;
+}
+
+.title_publications_profile{
+    font-family: "Outfit";
+    font-size: 30px;
+    padding: 15px;
+}
+
+.container_button_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info_publications_profile{
+    text-align: center;
+    font-family: "Manrope";
+    margin-top: 150px;
+}
+
+.button-create-publications-profile{
+    width: 155px;
+    height: 45px;
+    border-radius: 8px;
+    font-family: "Outfit";
+    font-weight: 400;
+    border: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    background-color: #285194;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.button-create-publications-profile:hover{
+    transform: translateY(-1px);
+}
+
+@media(max-width: 773px){
+    .info_publications_profile{font-size: 18px;}
+    .container_publications_profile{ width: 320px;}
+    .title_publications_profile{text-align: center;}
+} 
+
+
