@@ -1,13 +1,22 @@
 import { Navigate } from "react-router-dom";
+import { useUserStore } from "../stores/Store";
+import { useEffect, useState } from "react";
 
-const isVerified = () => {
-    //Espacio para trabajar la validación del token
-    return true;
-}
+
 
 const protectedRouters = ({children}) => {
- 
-    return isVerified() ? children : <Navigate to={"/ingresar"} replace/>
+
+    const {initializeUser, isVerified} = useUserStore();
+    const [loading, setLoading] = useState(true);
+    useEffect (() => {
+        const validateUser = async() => {
+            await initializeUser()
+            setLoading(false);
+        };
+        validateUser();
+    },[initializeUser]);
+
+    return loading ? <div>Cargando...</div> : isVerified ? children:<Navigate to={"/ingresar"} replace/>;
 }
 
 export default protectedRouters;
