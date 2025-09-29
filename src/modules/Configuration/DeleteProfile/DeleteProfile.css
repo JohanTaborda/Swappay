@@ -1,0 +1,48 @@
+.container_delete_account{
+    display: flex;
+    flex-direction: column;
+}
+
+.form_delete_user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.info_delete_account{
+    text-align: center;
+    margin-top: 60px !important;
+    font-size: 27px !important;
+}
+
+.input_delete_user{
+    width: 40%;
+}
+
+.button-delete-user{
+    font-family: "Outfit" !important;
+    font-size: 15px !important;
+    text-transform: none !important;
+    height: 50px;
+}
+
+@media(max-width: 500px){
+    .input_delete_user{
+        width: 100%;
+    }
+
+    .button-delete-user{
+        margin-top: 90px !important;
+        font-family: "Outfit" !important;
+        font-size: 17px !important;
+        text-transform: none !important;
+        height: 40px;
+        width: 100% !important;
+    }
+
+    .info_delete_account{
+        font-size: 20px !important;
+    }
+
+}
