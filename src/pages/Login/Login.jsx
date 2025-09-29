@@ -10,6 +10,7 @@ import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/axiosConfig";
 import { useUserStore } from "../../App/stores/Store";
+
 const Login = () => {
 
     const navigate= useNavigate();
@@ -17,7 +18,7 @@ const Login = () => {
     const [password, setPassword] = useState("");//Variable que almacena la contraseña digitada en el imput
     const [visPassword, setVisPassowrd] = useState(false);
     const [changeLogin, setChangeLogin] = useState(false)
-    const {setUser} = useUserStore();
+    const {setUser} = useUserStore(); //Función del store para actualizar el usuario.
 
     const iconClose = () => <IoClose className="iconClose" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
     const viewPassword = () => <IoMdEye color="#525151ff"/>

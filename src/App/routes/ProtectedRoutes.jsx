@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 
 const protectedRouters = ({children}) => {
 
-    const {initializeUser, isVerified} = useUserStore();
-    const [loading, setLoading] = useState(true);
+    const {initializeUser, isVerified} = useUserStore(); //Función que valida el token.
+    const [loading, setLoading] = useState(true); //Estado para mostrar una carga mientras los datos se traen del back.
     useEffect (() => {
-        const validateUser = async() => {
+        const validateUser = async() => { //Valida el token y actualiza el estado.
             await initializeUser()
             setLoading(false);
         };
