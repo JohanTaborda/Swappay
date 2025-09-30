@@ -9,15 +9,16 @@ import { IoClose } from "react-icons/io5"; //Importamos el icono para cerrar la 
 import { IoMdEye, IoMdEyeOff  } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import api from "../../service/axiosConfig";
+import { useUserStore } from "../../App/stores/Store";
 
 const Login = () => {
 
     const navigate= useNavigate();
     const [email, setEmail] = useState(""); //Variable que almacena el email digitado en el imput
     const [password, setPassword] = useState("");//Variable que almacena la contraseña digitada en el imput
+    const {setUser} = useUserStore(); //Función del store para actualizar el usuario.
     const [visPassword, setVisPassowrd] = useState(false); //Estado que permite al visualización de la contraseña
     const [changeLogin, setChangeLogin] = useState(false) //Estado que deshabilita el botón de ingresar, luego de enviar una solicitud.
-    
     const iconClose = () => <IoClose className="iconClose" onClick={() => navigate("/")}/> //Icono para cerrar la ventana
     const viewPassword = () => <IoMdEye color="#525151ff"/>
     const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/>
@@ -41,7 +42,7 @@ const Login = () => {
 
             const data = response.data;
 
-            console.log(data)
+            setUser(data)
             setChangeLogin(true);
 
             toast.success(`¡Bienvenid@! ${data.username}`, { position: "top-center",autoClose: 1500,hideProgressBar: false,closeOnClick: true,

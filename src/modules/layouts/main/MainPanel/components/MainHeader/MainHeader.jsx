@@ -13,16 +13,27 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import PersonIcon from '@mui/icons-material/Person';
 
 import { useNavigate, useLocation } from "react-router-dom"; //Usamos router-dom para validación y manejo de rutas.
+import { useUserStore } from "../../../../../../App/stores/Store"; //Importamos el store.
 
 const MainHeader = () => {
 
     const navigate = useNavigate(); 
     const location = useLocation();
+    const {username} = useUserStore(); //Se obtiene el username del usuario.
 
     const [anchorEl, setAnchorEl] = useState(null); //Estado que permite cerrar el menu.
     const [buttonSelected, setButtonSelected] = useState("Panel"); //Estado que almacena el botón seleccionado.
+    const [loading, setLoading] = useState(true); //Estado para mostrar una carga mientras los datos se traen del back.
 
-    const bsCoin = () => <BsCoin color="#000" fontSize={"20px"}/> //Icono de los swapCoins
+    const bsCoin = () => <BsCoin color="#000" fontSize={"20px"}/> //Icono de los swapCoins.
+    
+    useEffect (() => { //Actualiza loading si el username está disponible en el store.
+        if(username === null){
+            setLoading(true);
+        }else {
+            setLoading(false);
+        }
+    },[username]);
 
     const handleAvatarClick = (event) => {setAnchorEl(event.currentTarget);}; //Función que permite desplegar el menu cuando se le da clic al Avatar.
 
@@ -74,7 +85,7 @@ const MainHeader = () => {
                 </div>
                 <Avatar
                     className="profile_user_header"
-                    {...stringAvatar('Johan Taborda')} //En el Avatar del perfil, se muestran las iniciales del nombre.
+                    {...stringAvatar(loading ? "Usuario": username)} //En el Avatar del perfil, se muestran las iniciales del nombre.
                     onClick={handleAvatarClick} //Al darle clic, se despliega el menu con las opciones.
                 />
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}> {/*Menu con la lista de opciones por parte del usuario.*/}
