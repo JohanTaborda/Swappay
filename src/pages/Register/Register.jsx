@@ -25,7 +25,6 @@ const Register = () => {
     const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana}
     const [userRegister, setUserRegister] = useState(false); //Estado para validar si el usuario ya esta registrado.
     const [visPassword, setVisPassowrd] = useState(false); //Estamos para permitir visualizar la contraseña
-    const [visConfirmPassword, setVisConfirmPassowrd] = useState(false); //Estamos para permitir visualizar la contraseña
     const [cities, setCities] = useState([]); // Estado para almacenar las ciudades
     const [loading, setLoading] = useState(true); //Estado para visualizar componente de carga.
 
@@ -145,11 +144,7 @@ const Register = () => {
                             <input   {...register("password", { required: "La contraseña es obligatoria", minLength: {value: 6, message: "Minimo 6 Caracteres" }})} minLength={6} title="Mínimo 6 caracteres"
                             placeholder="Contraseña"  type={!visPassword ? "password" : "text"}  className={`form--input ${errors.password ? "input-error" : ""}`} id="input_register_password"/> {/* Validamos la contraseña */}
                         </div>
-
-                        <div style={{position:"relative", width:"85%"}}>
-                            <span onClick={() => setVisConfirmPassowrd(!visConfirmPassword)} className="eyeViewPassword">{!visConfirmPassword ? viewOffPassword() : viewPassword()}</span>
-                            <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type={!visConfirmPassword ? "password" : "text"} id="input_Confirm_register_password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
-                        </div>
+                        <input {...register("confirmPassword", { required: true })} placeholder="Confirmar Contraseña" type="password" className={`form--input ${errors.confirmPassword ? "input-error" : ""}`}/> {/* Validamos la confirmación de la contraseña */}
 
                         <button  type="submit" disabled={userRegister} className="btnRegister">
                             Regístrate
