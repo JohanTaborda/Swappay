@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 import React, { useEffect } from "react";
 import { useUserStore } from "../../../../../../App/stores/Store";
 
@@ -22,4 +21,4 @@ const MainData = () =>{
 }
 
 export default MainData;
->>>>>>> b65d9d3d96fe2d1c8fac96afe79c2146333008a4
+
