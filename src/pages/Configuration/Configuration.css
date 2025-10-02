@@ -1,0 +1,28 @@
+
+.container_box_configuration {
+    height: 460px !important;
+    border-radius: 10px !important;
+    overflow-y: auto;
+    scrollbar-width: thin; 
+    scrollbar-color: #888 #f1f1f1; 
+}
+
+.titleTabs{
+    font-family: "Outfit" !important;
+}
+
+@media(max-width: 500px){
+    .inputs_form_profile{
+        display: flex;
+        flex-direction: column;
+    }
+    .container_general_configuration{
+        width: 322px;
+    }
+}
+
+@media(max-width: 860px){
+    .container_box_configuration {
+        height: 450px !important;
+    }
+}

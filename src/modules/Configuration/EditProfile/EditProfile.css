@@ -1,0 +1,38 @@
+
+.inputs_form_profile{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.form_config_profile{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+.button-editProfile{
+    width: 200px;
+    height: 40px;
+    font-family: "Outfit" !important;
+    font-weight: 400 !important;
+    font-size: 18px !important;
+    text-transform: none !important;
+}
+
+.inputs_edit_profile{
+    font-family: "Outfit" !important;
+}
+
+@media(max-width: 500px){
+    .inputs_form_profile{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .button-editProfile{
+        width: 100%;
+    }
+}

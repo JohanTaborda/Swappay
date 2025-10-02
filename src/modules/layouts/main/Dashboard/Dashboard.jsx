@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import { FaShoppingCart, FaExchangeAlt, FaGraduationCap } from "react-icons/fa";
+import { FaGift } from "react-icons/fa"
+import { FaCoins } from "react-icons/fa";
 import logoSwappay from "../../../../resources/images/Designer.png";
 
 const Dashboard = () => {
@@ -23,10 +25,10 @@ const Dashboard = () => {
 
                 <section className="dashboardHero">
                     <div className="containerHero">
-                        <h1>Vende, Intercambia, Aprende</h1>
+                        <h1>Promociones e Intercambios</h1>
                         <p>
-                            La plataforma donde puedes vender productos,
-                            hacer intercambios útiles y aprender nuevas habilidades.
+                            Una plataforma donde puedes aprovechar promociones especiales 
+                            y dar una nueva vida a tus productos mediante el intercambio.
                         </p>
                         <div className="buttonsHero">
                             <a onClick={() => navigate("/ingresar")} style={{cursor:"pointer"}} className="btnStart"> Empezar</a>
@@ -41,24 +43,24 @@ const Dashboard = () => {
                         <div className="gridFeatures">
                             <div className="cardFeature">
                                 <div className="iconWrapper">
-                                    <FaShoppingCart/>
+                                    <FaGift />
                                 </div>
-                                <h3>Vender</h3>
-                                <p>Publica tus productos de forma sencilla y llega a más personas.</p>
+                                <h3>Promociones</h3>
+                                <p>Explora promociones y beneficios especiales en algunos productos.</p>
                             </div>
                             <div className="cardFeature">
                                 <div className="iconWrapper">
                                     <FaExchangeAlt />
                                 </div>
                                 <h3>Intercambiar</h3>
-                                <p>Intercambia lo que no usas por algo que sí necesites.</p>
+                                <p>Cambia artículos que ya no usas por productos o servicios que sí te interesen.</p>
                             </div>
                             <div className="cardFeature">
                                 <div className="iconWrapper">
-                                    <FaGraduationCap />
+                                    <FaCoins />
                                 </div>
-                                <h3>Aprender</h3>
-                                <p>Accede a cursos, talleres y tutoriales compartidos por la comunidad.</p>
+                                <h3>Monedas</h3>
+                                <p>Acumula monedas con ciertas acciones y canjéalas por beneficios exclusivos.</p>
                             </div>
                         </div>
                     </div>
@@ -69,14 +71,14 @@ const Dashboard = () => {
                         <div>
                             <h3>Swappay</h3>
                             <p>
-                                La plataforma donde vender, intercambiar y aprender se vuelve una experiencia única.
+                                Una plataforma para aprovechar ofertas, intercambiar productos y darles una segunda vida, 
+                                convirtiendo cada acción en una experiencia única.
                             </p>
                         </div>
                         <div>
                             <h3>Enlaces Rápidos</h3>
-                            <a href="#">Cómo Vender</a>
+                            <a href="#">Guía de Moneda</a>
                             <a href="#">Guía de Intercambios</a>
-                            <a href="#">Cursos Populares</a>
                             <a href="#">Centro de Ayuda</a>
                         </div>
                     </div>
