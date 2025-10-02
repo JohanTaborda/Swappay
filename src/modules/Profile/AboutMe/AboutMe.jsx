@@ -1,11 +1,14 @@
 import { useState } from "react";
 import "./AboutMe.css"
 
-const AboutMe = () => {
+import { useUserStore } from "../../../App/stores/Store";
 
+const AboutMe = () => {
+    
+    const {email} = useUserStore();
     const [infoUser, setInfoUser] = useState([ //Se crea el estado que contiene todos los valores que luego llegaran del servicio para mostrar más información del usuario.
         {nameInfo: "Fecha de registro: ", valueInfo: "12/09/2025"},
-        {nameInfo: "Correo: ", valueInfo: "elcorreo123@gmail.com"},
+        {nameInfo: "Correo: ", valueInfo: email},
         {nameInfo: "Genero: ", valueInfo: "Masculino"},
         {nameInfo: "Dirección: ", valueInfo: "Calle 123 N13-22"},
         {nameInfo: "Ubicación: ", valueInfo: "Medellín - Colombia"},
@@ -16,7 +19,6 @@ const AboutMe = () => {
     ]);
     
     const [progress, setProgress] = useState(67); // Valor de la barra de progreso.
-
 
     return (
         <div className="container_aboutme">

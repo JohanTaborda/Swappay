@@ -8,6 +8,8 @@ import Rating from '@mui/material/Rating'; //Componente para la calificación de
 import Stack from '@mui/material/Stack'; //Componente de layout para organizar las estrellas del usuario.
 import { Tooltip } from "@mui/material"; //Componente de Tooltip para la iamgen de perfil.
 
+import { useUserStore } from "../../../App/stores/Store";
+
 const InfoPersonal = () => {
 
     const navigate = useNavigate();
@@ -15,6 +17,13 @@ const InfoPersonal = () => {
     const[sectionSelected, setSectionSelected] = useState("Sobre mi"); //Estado que cambia según la sección seleccionada a mostrar.
     const[visButtonConfig, setVisButtonConfig] = useState(true);
     const[avatarSrc, setAvatarSrc] = useState(null); // Estado para la imagen del avatar
+    const[loading, setLoading] = useState(true);
+    const {username, country, isVerified} = useUserStore();
+
+    useEffect(() => {
+        if(!isVerified) setLoading(true)
+        else setLoading(false)
+    }, [isVerified])
 
     const stringAvatar = (name) => { //Función que permite mostrar N cantidad de letras [1 o 2] en la imagen de perfil, según el nombre de usuario.
         const parts = name.split(" ");
@@ -62,7 +71,7 @@ const InfoPersonal = () => {
         <div className="container_info_profile">
             <section className="Profile_photo">
                 <Tooltip title="Cambiar foto de perfil" arrow>
-                    <Avatar className="photo_user" src={avatarSrc} {...(!avatarSrc && stringAvatar("Johan Taborda"))}onClick={handleAvatarClick} style={{ cursor: "pointer" }} />
+                    <Avatar className="photo_user" src={avatarSrc} {...(!avatarSrc && stringAvatar(loading ? "" : username))}onClick={handleAvatarClick} style={{ cursor: "pointer" }} />
                 </Tooltip>
                 <input id="avatar-input"type="file"accept="image/*"onChange={handleAvatarChange}style={{ display: "none" }}/>
             </section>
@@ -73,8 +82,8 @@ const InfoPersonal = () => {
                 ))}
             </section>
             <section className="priority_info_user">
-                <h5>Nombre de usuario</h5>
-                <h5>Pais</h5>
+                <h5>{loading ? "Usuario" : username}</h5>
+                <h5>{loading ? "Pais" : country}</h5>
                 <h5>
                     <Stack spacing={1} className="rating_users">
                         <Rating name="half-rating" defaultValue={2.5} precision={0.5} readOnly /> {/*Estrellas de calificación en solo lectura.*/}

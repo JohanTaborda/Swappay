@@ -41,7 +41,7 @@ const protectedRouters = ({ children }) => {
 
 
     //Si esta cargando el componente muestra el div, si el usuario es verificado muestra el componente protegido, si no esta verificado, redirige a '/ingresar'.
-    return loading ? <div>Cargando...</div> : isVerified ? children : <Navigate to={"/ingresar"} replace />;
+    return loading ? <div></div> : isVerified ? children : <Navigate to={"/ingresar"} replace />;
 };
 
 export default protectedRouters;

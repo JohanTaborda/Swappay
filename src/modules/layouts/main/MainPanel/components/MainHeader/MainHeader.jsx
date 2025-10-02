@@ -19,7 +19,7 @@ const MainHeader = () => {
 
     const navigate = useNavigate(); 
     const location = useLocation();
-    const {username} = useUserStore(); //Se obtiene el username del usuario.
+    const {username, logout} = useUserStore(); //Se obtiene el username del usuario.
 
     const [anchorEl, setAnchorEl] = useState(null); //Estado que permite cerrar el menu.
     const [buttonSelected, setButtonSelected] = useState("Panel"); //Estado que almacena el botón seleccionado.
@@ -65,6 +65,15 @@ const MainHeader = () => {
         else if(location.pathname === "/intercambios") setButtonSelected("Intercambios");
     }, [])
 
+    const userLogout = async () => {
+        try {
+           await logout();
+            navigate("/ingresar");
+        } catch (error) {
+            console.log("Error al cerrar sesión", error)
+        }
+    }
+
     return (
         <div className="container_Header_panel">
             <section className="sections_header">
@@ -97,7 +106,7 @@ const MainHeader = () => {
                         <ListItemIcon><HelpOutlineIcon/></ListItemIcon>
                         Ayuda
                     </MenuItem>
-                    <MenuItem onClick={() => userAction('/')} style={{fontFamily:"Outfit", color:"#f76b6bff"}}>
+                    <MenuItem onClick={() => userLogout()} style={{fontFamily:"Outfit", color:"#f76b6bff"}}>
                         <ListItemIcon><Logout style={{color:"#f76b6bff"}}/></ListItemIcon>
                         Cerrar Sesión
                     </MenuItem>
