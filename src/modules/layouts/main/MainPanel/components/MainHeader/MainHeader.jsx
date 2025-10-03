@@ -63,7 +63,7 @@ const MainHeader = () => {
         if(location.pathname === "/panel") setButtonSelected("Panel");
         else if(location.pathname === "/ofertas") setButtonSelected("Ofertas");
         else if(location.pathname === "/intercambios") setButtonSelected("Intercambios");
-    }, [])
+    }, [location.pathname])
 
     return (
         <div className="container_Header_panel">

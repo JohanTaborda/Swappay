@@ -1,0 +1,83 @@
+  .carruselCard {
+    width: 100%;
+    max-width: 594px;
+    min-height: 360px;
+    height: auto;
+    background-color: #285194;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(30, 41, 59, 0.60);
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+
+  .carruselCard:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  }
+
+  .carruselCard h2 {
+    font-size: 1.5rem;
+    font-family: "Outfit";
+    color: #fff;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+
+  .carruselCard p {
+    font-size: 1rem;
+    font-family: "Manrope";
+    color: #fff;
+  }
+
+  .carruselIcon img {
+    width: 195px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 1024px) {
+  .carruselCard {
+    width: 90%;
+    height: auto;
+    padding: 1.5rem;
+    margin: 1rem auto;
+  }
+
+  .carruselCard h2 {
+    font-size: 1.4rem;
+  }
+
+  .carruselCard p {
+    font-size: 0.95rem;
+  }
+
+  .carruselIcon img {
+    width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carruselCard {
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .carruselCard h2 {
+    font-size: 1.2rem;
+  }
+
+  .carruselCard p {
+    font-size: 0.9rem;
+  }
+
+  .carruselIcon img {
+    width: 120px;
+  }
+}
+
