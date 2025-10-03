@@ -63,7 +63,7 @@ const MainHeader = () => {
         if(location.pathname === "/panel") setButtonSelected("Panel");
         else if(location.pathname === "/ofertas") setButtonSelected("Ofertas");
         else if(location.pathname === "/intercambios") setButtonSelected("Intercambios");
-    }, [])
+    }, [location.pathname])
 
     const userLogout = async () => { //Función que permite cerrar la sesión del usuario.
         try {
