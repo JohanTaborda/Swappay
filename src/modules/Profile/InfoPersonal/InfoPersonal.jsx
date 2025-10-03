@@ -9,19 +9,20 @@ import Stack from '@mui/material/Stack'; //Componente de layout para organizar l
 import { Tooltip } from "@mui/material"; //Componente de Tooltip para la iamgen de perfil.
 
 import { useUserStore } from "../../../App/stores/Store";
+import api from "../../../service/axiosConfig";
 
 const InfoPersonal = () => {
 
-    const navigate = useNavigate();
-    const location = useLocation();
+    const navigate = useNavigate(); //Usamos navigate para navegar entre las rutas de la aplicación
+    const location = useLocation(); //Usamos location para saber en que ruta según la URL nos encontramos.
     const[sectionSelected, setSectionSelected] = useState("Sobre mi"); //Estado que cambia según la sección seleccionada a mostrar.
     const[visButtonConfig, setVisButtonConfig] = useState(true);
     const[avatarSrc, setAvatarSrc] = useState(null); // Estado para la imagen del avatar
     const[loading, setLoading] = useState(true);
-    const {username, country, isVerified} = useUserStore();
+    const {username, country, isVerified, id, profileImageUser, setUser} = useUserStore();
 
-    useEffect(() => {
-        if(!isVerified) setLoading(true)
+    useEffect(() => { //UseEffect que permite cargar todos los datos que vienen del back, para poderlos mostrar.
+        if(!isVerified) setLoading(true)  //Si el usuario no esta verificado, muestra el componente de carga, si no, lo oculta
         else setLoading(false)
     }, [isVerified])
 
@@ -52,14 +53,29 @@ const InfoPersonal = () => {
         else setVisButtonConfig(true);
     }, [location.pathname]);
 
-    const handleAvatarChange = (event) => { //Función que permite cambiar la foto de perfil por una imagen.
-        const file = event.target.files?.[0];
-        if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setAvatarSrc(reader.result);
-        };
-        reader.readAsDataURL(file);
+    const handleAvatarChange = async (event) => { //Función que permite realizar un cambio de imagen de perfil.
+        const file = event.target.files?.[0];  // Obtiene el primer archivo seleccionado en el input.
+        if (!file) return;  // Si no se seleccionó ningún archivo, termina la ejecución de la función.
+
+        // Vista previa inmediata
+        const reader = new FileReader(); // Crea un objeto FileReader para leer el contenido del archivo seleccionado.
+        reader.onload = () => setAvatarSrc(reader.result);// Define la función que se ejecutará cuando FileReader termine de leer el archivo.
+        reader.readAsDataURL(file); // Inicia la lectura del archivo como URL de datos (base64), lo que permite mostrar la imagen antes de subirla.
+
+
+        // Subir al backend
+        const formData = new FormData(); // Crea un objeto FormData para enviar datos en formato multipart/form-data, que es necesario para subir archivos al backend.
+        formData.append("profileImage", file); // Agrega el archivo seleccionado al FormData con la clave 'profileImage'.
+
+        try {
+            // Realiza una solicitud PUT al endpoint del backend para actualizar la imagen de perfil del usuario.
+            const { data } = await api.put(`/users/${id}/profile-image`, formData,{headers: { "Content-Type": "multipart/form-data" },});
+
+            setAvatarSrc(`http://localhost:3000/uploads/${data.profileImage}`); // Actualiza el estado local 'avatarSrc' con la URL de la nueva imagen para mostrarla inmediatamente en la interfaz.
+            setUser({profileImageUser: `http://localhost:3000/uploads/${data.profileImage}`}); // Actualiza el estado global del usuario para reflejar la nueva imagen de perfil en toda la aplicación.
+
+        } catch (error) {
+            console.error(error || "Error al subir la imagen");
         }
     };
 
@@ -67,16 +83,33 @@ const InfoPersonal = () => {
         document.getElementById('avatar-input').click();
     };
 
+    const deleteImage = async () => { //Función para eliminar la imagen del perfil del usuario.
+        try {
+            await api.delete(`/users/${id}/profile-image`); //Endpoint para eliminar la imagen.
+            setUser({ profileImageUser: null }); //Actualizamos el estado global.
+            setAvatarSrc(null);
+        } catch (error) {
+            console.error(error || "Error al eliminar la imagen");
+        }
+    };
+
+
     return(
         <div className="container_info_profile">
             <section className="Profile_photo">
                 <Tooltip title="Cambiar foto de perfil" arrow>
-                    <Avatar className="photo_user" src={avatarSrc} {...(!avatarSrc && stringAvatar(loading ? "" : username))}onClick={handleAvatarClick} style={{ cursor: "pointer" }} />
+                    <Avatar className="photo_user" src={profileImageUser} {...(!avatarSrc && stringAvatar(loading ? "" : username.toUpperCase()))}onClick={handleAvatarClick} style={{ cursor: "pointer" }} />
                 </Tooltip>
                 <input id="avatar-input"type="file"accept="image/*"onChange={handleAvatarChange}style={{ display: "none" }}/>
+                {profileImageUser &&
+                profileImageUser !== "" &&
+                profileImageUser !== null &&
+                !profileImageUser.endsWith("/null") ? (
+                    <a className="button_delete_avatar" onClick={deleteImage}>Eliminar imagen</a>
+                ) : null}
             </section>
 
-            <section className="navigate_sections_profile">
+            <section className="navigate_sections_profile" style={typeof profileImageUser === "string" && !profileImageUser.endsWith("/null") ? {marginTop: "0"} : {marginTop: "10px"}}>
                 {valueSections.map((value, index) => (
                     <a key={index} onClick={() => changeSection(value.name, value.href)} id={sectionSelected === value.name ? "equal_option_selected" : ""}>{value.name}</a>
                 ))}
@@ -90,7 +123,7 @@ const InfoPersonal = () => {
                     </Stack>
                 </h5>
             </section>
-            <section className="action_edit_profile">
+            <section className="action_edit_profile" style={typeof profileImageUser === "string" && !profileImageUser.endsWith("/null") ? {marginTop: "0"} : {marginTop: "10px"}}>
                 {visButtonConfig && (
                     <button onClick={() => navigate('/perfil/configuracion')} className="button_edit_profile">Configuración</button>
                 )}

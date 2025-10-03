@@ -17,9 +17,9 @@ import { useUserStore } from "../../../../../../App/stores/Store"; //Importamos 
 
 const MainHeader = () => {
 
-    const navigate = useNavigate(); 
-    const location = useLocation();
-    const {username, logout} = useUserStore(); //Se obtiene el username del usuario.
+    const navigate = useNavigate(); //Utilizamos esto para navegar entre rutas.
+    const location = useLocation(); //Usamos esto para verificar la ruta actual según la URL.
+    const {username, logout, profileImageUser } = useUserStore(); //Se obtiene el username, cierre de sesión e imagen del usuario.
 
     const [anchorEl, setAnchorEl] = useState(null); //Estado que permite cerrar el menu.
     const [buttonSelected, setButtonSelected] = useState("Panel"); //Estado que almacena el botón seleccionado.
@@ -65,7 +65,7 @@ const MainHeader = () => {
         else if(location.pathname === "/intercambios") setButtonSelected("Intercambios");
     }, [])
 
-    const userLogout = async () => {
+    const userLogout = async () => { //Función que permite cerrar la sesión del usuario.
         try {
            await logout();
             navigate("/ingresar");
@@ -89,12 +89,13 @@ const MainHeader = () => {
                     {bsCoin()} {/*Icono de los swapcoins */}
                     <div className="info_swapcoin">
                         <div className="text_swapcoins">Mis Swapcoins:</div>
-                        <div className="value_swapcoins">{0}</div>
+                        <div className="value_swapcoins">{50}</div>
                     </div>
                 </div>
                 <Avatar
                     className="profile_user_header"
-                    {...stringAvatar(loading ? "Usuario": username)} //En el Avatar del perfil, se muestran las iniciales del nombre.
+                    src={loading ? "Cargando imagen" : profileImageUser}
+                    {...stringAvatar(loading ? "Usuario": username.toUpperCase())} //En el Avatar del perfil, se muestran las iniciales del nombre.
                     onClick={handleAvatarClick} //Al darle clic, se despliega el menu con las opciones.
                 />
                 <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}> {/*Menu con la lista de opciones por parte del usuario.*/}
