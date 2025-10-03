@@ -13,14 +13,14 @@ import { ToastContainer } from 'react-toastify';
 
 import {MenuItem, Select, FormControl } from '@mui/material';
 
-import api from "../../service/axiosConfig";
+import api from "../../service/axiosConfig"; //Importamos api para comunicarnos con el backend.
 
 const Register = () => {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //Usamos navigate para navegar entre rutas.
     
-    const viewPassword = () => <IoMdEye color="#525151ff"/>
-    const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/>
+    const viewPassword = () => <IoMdEye color="#525151ff"/> //Icono de la contraseña visible
+    const viewOffPassword = () => <IoMdEyeOff color="#525151ff"/> //Icono de la contraseña no visible
 
     const iconClose = () => <IoClose className="iconCloseRegister" onClick={() => navigate("/")}/> //Icono para cerrar la ventana}
     const [userRegister, setUserRegister] = useState(false); //Estado para validar si el usuario ya esta registrado.
@@ -31,7 +31,7 @@ const Register = () => {
     useEffect(() => { //Hook para hacer una petición al backend y obtener la lista de paises.
         const obtainCountry = async() => {
             try {
-                const {data} = await api.get("/users/countries");
+                const {data} = await api.get("/users/countries"); //Obtenemos los paises.
                 setCities(data);
                 setLoading(false)
             } catch (error) {
@@ -48,7 +48,7 @@ const Register = () => {
 
     const onSubmit = async (formData) => { // Función que se ejecuta al enviar el formulario
 
-        const { password, confirmPassword, firstName, lastName, email, country} = formData;
+        const { password, confirmPassword, firstName, lastName, email, country} = formData; //Desestructuramos el formulario para acceder a cada propiedad interna del objeto.
 
 
         //Validamos que las contraseñas coincidan.
@@ -58,8 +58,8 @@ const Register = () => {
         }
 
         try {
-            await api.post("/users", {
-                username: `${firstName} ${lastName}`,
+            await api.post("/users", { //Mandamos los datos del registro de usuario al backend.
+                username: `${firstName.trim()} ${lastName.trim()}`, //Concatenamos nombres y apellidos en un solo valor, quitandole los espacios al inicio y al final.
                 country,
                 email,
                 password

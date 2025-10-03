@@ -2,24 +2,31 @@ import {useState, useEffect} from "react";
 import "./ChangePassword.css"
 
 import { useForm } from "react-hook-form"; //Importamos el hook para manejar la información del formulario.
-import { ToastContainer, toast } from 'react-toastify'; //Importamos toast para sacar los push con mensajes informativos.
 import {Typography, TextField, Button, InputAdornment} from '@mui/material'; //Importamos componentes a utilizar de MaterialUI
 
 import { IoMdEye, IoMdEyeOff  } from "react-icons/io"; //Importamos iconos para las contraseñas.
+
+import { toast } from "react-toastify";  //Importamos los push para los mensajes informativos.
+import { useUserStore } from "../../../App/stores/Store"; //Importamos el store para manejar los estados globales.
+import { useNavigate } from "react-router-dom"; //Importamos esto para el manejo de rutas
+
 import api from "../../../service/axiosConfig"; //Importamos API para comunicarnos con el backend.
 
 const ChangePassword = () => {
 
+    const navigate = useNavigate(); //Utilizamos navigate para navegar entre rutas.
+    const {id} = useUserStore(); //Traemos el ID del usuario, del store.
     const [showCurrentPassword, setShowCurrentPassword] = useState(false); //Estado que permite la visualización de la contraseña actual.
     const [showNewPassword, setShowNewPassword] = useState(false);//Estado que permite la visualización de la nueva contraseña.
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);//Estado que permite la visualización de la confirmación de la nueva contraseña.
+    const [acceptPassword, setAcceptPassword] = useState(false); //Estado para deshabilitar el botón de cambiar contraseña y evitar enviar muchas solicitudes.
 
     const viewPassword = () => <IoMdEye color="#525151ff" fontSize={"22px"}/> //Manejamos los iconos como funciones para mayor claridad. Icono para visualizar la contraseña.
     const viewOffPassword = () => <IoMdEyeOff color="#525151ff" fontSize={"22px"}/>//Manejamos los iconos como funciones para mayor claridad. Icono para ocultar la contraseña.
 
     const { register, handleSubmit, control } = useForm(); //Usamos las funciones que nos trae el hook de useForm, para el manejo de formulario.
 
-    const onSubmit = (formData) => { //Función que se llama cuando se envia el formulario
+    const onSubmit = async(formData) => { //Función que se llama cuando se envia el formulario
         const {currentPassword, newPassword, confirmPassword} = formData; //Desestructuramos el objeto con la contraseña del usuario.
 
         //Validamos que las contraseñas coincidan.
@@ -28,7 +35,25 @@ const ChangePassword = () => {
             return;
         }
 
-        console.log(currentPassword, newPassword, confirmPassword) //Mostramos las contraseñas por consola.
+        try {
+            setAcceptPassword(true) //Se deshabilita el botón para actualizar contraseña
+
+            const {data} = await api.put(`/users/${id}/changePassword`, { //Endpoint para cambiar la contraseña del usuario.
+                currentPassword, 
+                newPassword
+            })
+            
+            toast.success(data.message || "Contraseña Actualizada", {position: "top-center"}) //Mensaje informativo.
+
+            setTimeout(() => {
+                navigate("/perfil"); //Navegar hacia perfil luego de cambiar la contraseña.
+                setAcceptPassword(false); //Habilitamos el botón de actualizar contraseña.
+            }, 2000);
+        } catch (error) {
+            toast.error(error.response.data.message || "Error al actualizar contraseña", {position: "top-center"})
+            console.error("Error al actualizar la contraseña", error)
+            setAcceptPassword(false);
+        }
     }
 
     return(
@@ -84,11 +109,8 @@ const ChangePassword = () => {
                     }}
                 />
                 
-                <Button variant="contained" type="submit" sx={{ mt: 2 }} className="button-change-password">Actualizar contraseña</Button>
+                <Button variant="contained" disabled={acceptPassword} type="submit" sx={{ mt: 2 }} className="button-change-password">Actualizar contraseña</Button>
             </form>
-            <div>
-                <ToastContainer position="bottom-right" autoClose={2000} hideProgressBar={false} closeOnClick pauseOnHover draggable/> {/*Paneles informativos de la aplicación.*/}
-            </div>
         </>
     )
 }
