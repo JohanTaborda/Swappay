@@ -8,8 +8,11 @@ import Rating from '@mui/material/Rating'; //Componente para la calificación de
 import Stack from '@mui/material/Stack'; //Componente de layout para organizar las estrellas del usuario.
 import { Tooltip } from "@mui/material"; //Componente de Tooltip para la iamgen de perfil.
 
-import { useUserStore } from "../../../App/stores/Store";
-import api from "../../../service/axiosConfig";
+import { useUserStore } from "../../../App/stores/Store"; //Importamos el store para el manejo de estados globales.
+import api from "../../../service/axiosConfig"; //Importamos api para comunicarnos con el backend.
+
+import { toast } from "react-toastify"; //Utilizamos los push informativos.
+
 
 const InfoPersonal = () => {
 
@@ -74,8 +77,11 @@ const InfoPersonal = () => {
             setAvatarSrc(`http://localhost:3000/uploads/${data.profileImage}`); // Actualiza el estado local 'avatarSrc' con la URL de la nueva imagen para mostrarla inmediatamente en la interfaz.
             setUser({profileImageUser: `http://localhost:3000/uploads/${data.profileImage}`}); // Actualiza el estado global del usuario para reflejar la nueva imagen de perfil en toda la aplicación.
 
+            toast.success( data.message || "Imagen actualizada.", {position: "top-center"}); //Mensaje informativo de exito.
+
         } catch (error) {
-            console.error(error || "Error al subir la imagen");
+            console.error("Error al actualizar la imagen", error);
+            toast.error( error.response.data.message || "Error al actualizar imagen.", {position: "top-center"});
         }
     };
 
@@ -88,8 +94,10 @@ const InfoPersonal = () => {
             await api.delete(`/users/${id}/profile-image`); //Endpoint para eliminar la imagen.
             setUser({ profileImageUser: null }); //Actualizamos el estado global.
             setAvatarSrc(null);
+            toast.success("Imagen eliminada con exito.", {position: "top-center"}); //Mensajes de exito
         } catch (error) {
             console.error(error || "Error al eliminar la imagen");
+            toast.error( error.response.data.message || "Error al actualizar imagen.", {position: "top-center"});
         }
     };
 
