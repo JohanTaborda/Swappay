@@ -1,6 +1,9 @@
-import { Navigate } from "react-router-dom";
-import { useUserStore } from "../stores/Store";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"; 
+
+import { Navigate } from "react-router-dom"; //Importamos el componente para redirigir entre rutas.
+import { useUserStore } from "../stores/Store"; //Importamos el store para manejar los estados globales.
+
+import { toast } from 'react-toastify'; //Importamos Toast para los paneles informativos.
 
 const protectedRouters = ({ children }) => {
     const { initializeUser, isVerified } = useUserStore(); // Funcion que valida el token.
@@ -13,8 +16,8 @@ const protectedRouters = ({ children }) => {
         //withLoader, es una propiedad que se recibe mediante props, en caso de no recibir un valor, el por defecto será 'false'.
         //Si es verdadero, se activa la pantalla de carga
         const validateUser = async (withLoader = false) => { //Función para la validación del usuario
-            if (withLoader && isMounted) {
-                setLoading(true);
+            if (withLoader && isMounted) { //Si es verdadero y el componente sigue montado.
+                setLoading(true); //Se activa el loading
             }
 
             try {
@@ -41,7 +44,14 @@ const protectedRouters = ({ children }) => {
 
 
     //Si esta cargando el componente muestra el div, si el usuario es verificado muestra el componente protegido, si no esta verificado, redirige a '/ingresar'.
-    return loading ? <div></div> : isVerified ? children : <Navigate to={"/ingresar"} replace />;
+    if (loading) return <div></div>;
+
+    if (!isVerified) { // Si el usuario no esta verificado, redirige a la página de login.
+        toast.info("Inicia sesión para continuar.", {position: "top-center"}); // Notificación informativa al redirigir.
+        return <Navigate to={"/ingresar"} replace />; //Redirige a la página de login.
+    }
+
+    return children; //Si el usuario esta verificado, muestra el componente protegido.
 };
 
 export default protectedRouters;
