@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useUserStore } from "../../../../../../App/stores/Store";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +7,7 @@ import Discount from "../../../../../../resources/images/discount.png";
 import Change from "../../../../../../resources/images/change.png";
 import "./MainData.css";
 
-const MainData = () =>{
+const MainData = () => {
 
     const navigate = useNavigate();
     const {username, initializeUser} = useUserStore(); //Función para inicializar el usuario.
@@ -50,8 +49,7 @@ const MainData = () =>{
                 <p>&copy; 2025 Swappay. Todos los derechos reservados.</p>
             </footer>
         </div>
-    )
-}
+    );
+};
 
 export default MainData;
-

@@ -6,20 +6,27 @@ import { Typography, TextField, Button, Select, MenuItem, FormControl, InputLabe
 
 import { useNavigate } from "react-router-dom"; //Importamos el hook para navegar entre rutas
 
+import { useUserStore } from "../../../App/stores/Store"; //Traemos el store para los datos del usuario.
+
+import { toast } from "react-toastify"; //Utilizamos los push informativos.
+
 import api from "../../../service/axiosConfig";  //Importamos la comunicación con el backend.
 
 const EditProfile = () => {
 
+    //Extraemos todos estos valores del store para su uso.
+    const {username, country, email, id, setUserInfo, setUser, userInfo} = useUserStore();
+
     const { register, handleSubmit, control } = useForm({
-        defaultValues: { //Definimos los valores por defecto que tendra cada propiedad del formulario
-            username: '',
-            email: '',
-            country: '',
-            city: '',
-            phone: '',
-            gender: '',
-            dateBirth: '',
-            address: ''
+        defaultValues: { //Definimos los valores por defecto que tendra cada propiedad del formulario, para los campos opcionales.
+            username: username ,
+            email: email,
+            country: country,
+            city: userInfo.city || "",
+            phone: userInfo.phone || "",
+            gender: userInfo.gender || "",
+            dateBirth: userInfo.dateBirth || "",
+            address: userInfo.address || ""
         }
     });
 
@@ -29,7 +36,8 @@ const EditProfile = () => {
     const [editProfile, setEditProfile] = useState(false); //Estado para permitir editar los campos del componente.
     const [success, setSuccess] = useState(false); //Estado que cambia si el formulario se envia correctamente.
 
-    useEffect(() => { //Hook que contiene una función para comunicarnos con el backend.
+
+    useEffect(() => { //Hook que contiene una función para comunicarnos con el backend y traer los paises.
         const obtainCountry = async () => { //Función asincrona que trae los paises desde el backend.
             try {
                 const { data } = await api.get("/users/countries");
@@ -45,23 +53,45 @@ const EditProfile = () => {
 
     const typeGender = [ //Array de objetos que almacena las opciones para el campo de genero.
         { id: "", name: "--Seleccionar--" },
-        { id: "masculino", name: "Masculino" },
-        { id: "femenino", name: "Femenino" },
+        { id: "Masculino", name: "Masculino" },
+        { id: "Femenino", name: "Femenino" },
         { id: "other", name: "No quiero especificar" }
     ];
 
-    const submitProfile = (formData) => { //Función que se llama cuando se envia el formulario.
+    const submitProfile = async(formData) => { //Función que se llama cuando se envia el formulario.
+        const {username, email, country, city, phone, address, gender, dateBirth} = formData; //Desestructuramos el objeto para acceder a cada propiedad interna del formulario.
+
         try {
-            setSuccess(true);
-            console.log("Formulario de perfil recibido:", formData);
+            setSuccess(true); 
+
+            const {data} = await api.put(`/users/${id}`, { //Mandamos los valores para actualziar el usuario.
+                username, 
+                email,
+                country,
+                city,
+                phone, 
+                address, 
+                gender,
+                dateBirth
+            })
+
+            setUser({ //Actualizamos ciertos campos del store.
+                username: data?.username ?? username,
+                country: data?.country ?? country,
+                email: data?.email ?? email
+            });
+
+            setUserInfo(data.user); //Actualizamos cierta propiedad del store, enviandole todo el objeto. Este para el uso de los demás datos opcionales del usuario.
+            toast.success( data.message || "Información Actualizada.", {position: "top-center"}); //Mensaje informativo.
             
-            setTimeout(() => {
-                setEditProfile(!editProfile);
+            setTimeout(() => { //Hacemos una espera de 2 segundos y cambiamos la ruta.
+                setEditProfile(!editProfile); //Habilitamos la opción para editar perfil.
                 setSuccess(false);
-                navigate("/perfil")
-            }, 3000);
+                navigate("/perfil") //Navegamos a la ruta de perfil.
+            }, 2000);
         } catch (error) {
-            
+            toast.error(error.response.data.message || "Error al actualizar usuario.", {position: "top-center"});
+            setSuccess(false);
         }
     };
 
@@ -126,7 +156,7 @@ const EditProfile = () => {
 
             {editProfile ? ( //Si editProfile es verdadero se muestra Guardar Cambios, sino, se muestra Editar perfil.
                 <Button variant="contained" type="submit" sx={{ mt: 2 }} className="button-editProfile" disabled={success} startIcon={success ? <CircularProgress size={20} color="inherit" /> : null} >
-                    {success ? "Guardando..." : "Guardar cambios"} {/*Si el formulario se envio exitosamente, se muestra el mensaje de guardando, sino, sigue en Guardar cambios. */}
+                    {success ? "Actualizando..." : "Guardar cambios"} {/*Si el formulario se envio exitosamente, se muestra el mensaje de guardando, sino, sigue en Guardar cambios. */}
                 </Button>
             ) : (
                 <Button variant="contained" type="button" onClick={changeEditButton} sx={{ mt: 2 }} className="button-editProfile">
