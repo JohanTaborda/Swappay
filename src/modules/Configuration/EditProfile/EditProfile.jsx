@@ -6,14 +6,17 @@ import { Typography, TextField, Button, Select, MenuItem, FormControl, InputLabe
 
 import { useNavigate } from "react-router-dom"; //Importamos el hook para navegar entre rutas
 
+import { useUserStore } from "../../../App/stores/Store";
+
 import api from "../../../service/axiosConfig";  //Importamos la comunicación con el backend.
 
 const EditProfile = () => {
 
+    const {email} = useUserStore();
     const { register, handleSubmit, control } = useForm({
         defaultValues: { //Definimos los valores por defecto que tendra cada propiedad del formulario
             username: '',
-            email: '',
+            email: email,
             country: '',
             city: '',
             phone: '',
@@ -28,6 +31,7 @@ const EditProfile = () => {
     const [cities, setCities] = useState([]); //Almacenamos las ciudades que vienen del backend.
     const [editProfile, setEditProfile] = useState(false); //Estado para permitir editar los campos del componente.
     const [success, setSuccess] = useState(false); //Estado que cambia si el formulario se envia correctamente.
+
 
     useEffect(() => { //Hook que contiene una función para comunicarnos con el backend.
         const obtainCountry = async () => { //Función asincrona que trae los paises desde el backend.

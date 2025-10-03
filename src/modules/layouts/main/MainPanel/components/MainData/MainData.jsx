@@ -1,22 +1,12 @@
-import React, { useEffect } from "react";
-import { useUserStore } from "../../../../../../App/stores/Store";
+import {useState, useEffect} from "react";
 
-const MainData = () =>{
+const MainData = () => {
 
-    const {username, initializeUser} = useUserStore(); //Función para inicializar el usuario.
-    useEffect (() => { 
-        initializeUser(); 
-        const interval = setInterval(() => {
-            initializeUser()
-        }, 5*60*1000); //Valida cada 5 minutos.
-        return () => clearInterval(interval) 
-    },[initializeUser])
-
-    return(
+    return (
         <div>
-            {username}
+            Componente para trabajar el MainData.
         </div>
-    )
-}
+    );
+};
 
 export default MainData;
