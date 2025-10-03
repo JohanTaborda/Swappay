@@ -15,7 +15,6 @@
 
 .Profile_photo {
     position: relative;
-    margin-bottom: 10px;
 }
 
 .photo_user {
@@ -43,7 +42,7 @@
 .navigate_sections_profile a{
     text-decoration:underline !important;
     cursor: pointer;
-    height: 30px;
+    height: 25px;
     padding: 5px;
     font-family: "Outfit";
     font-size: 18px;
@@ -116,3 +115,14 @@
     box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
+.button_delete_avatar {
+    color: rgb(231, 116, 116);
+    font-size: 14px;
+    margin-left: 10px !important;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.button_delete_avatar:hover{color: rgb(243, 51, 51)}

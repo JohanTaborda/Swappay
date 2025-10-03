@@ -1,22 +1,24 @@
 import { useState } from "react";
 import "./AboutMe.css"
 
-const AboutMe = () => {
+import { useUserStore } from "../../../App/stores/Store";
 
+const AboutMe = () => {
+    
+    const {email, userInfo} = useUserStore();
     const [infoUser, setInfoUser] = useState([ //Se crea el estado que contiene todos los valores que luego llegaran del servicio para mostrar más información del usuario.
-        {nameInfo: "Fecha de registro: ", valueInfo: "12/09/2025"},
-        {nameInfo: "Correo: ", valueInfo: "elcorreo123@gmail.com"},
-        {nameInfo: "Genero: ", valueInfo: "Masculino"},
-        {nameInfo: "Dirección: ", valueInfo: "Calle 123 N13-22"},
-        {nameInfo: "Ubicación: ", valueInfo: "Medellín - Colombia"},
-        {nameInfo: "Teléfono: ", valueInfo: "3206427315"},
-        {nameInfo: "Total intercambios: ", valueInfo: "2"},
+        {nameInfo: "Fecha de nacimiento: ", valueInfo: userInfo.dateBirth || "Sin información"},
+        {nameInfo: "Correo: ", valueInfo: email || "Sin información"},
+        {nameInfo: "Genero: ", valueInfo: userInfo.gender || "Sin información"},
+        {nameInfo: "Dirección: ", valueInfo: userInfo.address || "Sin información"},
+        {nameInfo: "Ciudad: ", valueInfo: userInfo.city || "Sin información"},
+        {nameInfo: "Teléfono: ", valueInfo: userInfo.phone || "Sin información"},
+        {nameInfo: "Total intercambios: ", valueInfo: "0"},
         {nameInfo: "Total compras: ", valueInfo: "0"},
-        {nameInfo: "Total Swapcoins: ", valueInfo: "150"}
+        {nameInfo: "Total Swapcoins: ", valueInfo: "50"}
     ]);
     
-    const [progress, setProgress] = useState(67); // Valor de la barra de progreso.
-
+    const [progress, setProgress] = useState(33); // Valor de la barra de progreso.
 
     return (
         <div className="container_aboutme">
@@ -48,7 +50,7 @@ const AboutMe = () => {
                         <span className="task_reward">+50 Swapcoins</span>
                     </div>
                     <div className="swapcoins_task">
-                        <input type="checkbox" checked={true} readOnly />
+                        <input type="checkbox" checked={false} readOnly />
                         <span>Realizar primer intercambio</span>
                         <span className="task_reward">+100 Swapcoins</span>
                     </div>
