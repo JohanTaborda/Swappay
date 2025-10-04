@@ -82,8 +82,8 @@ const PublicationDialog = ({dataUser, open, handleClose}) => { //Recibimos como 
                         <span className="detail_value">{dataUser.amount}</span>
                     </div>
                     <div className="detail_item">
-                        <span className="detail_label">Tipo intercambio:</span>
-                        <span className="detail_value">{dataUser.typeExchange}</span>
+                        <span className="detail_label">Productos de interés:</span>
+                        <span className="detail_value">{dataUser.interests}</span>
                     </div>
                     {dataUser.priceSwapcoins && (
                         <div className="detail_item">

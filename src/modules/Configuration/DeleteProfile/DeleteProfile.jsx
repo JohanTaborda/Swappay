@@ -46,7 +46,7 @@ const DeleteProfile = () => {
 
             setTimeout(() => {
                 navigate('/'); //Luego de eliminado el usuario, lo regresamos al panel informativo de la aplicación
-            }, 1500);
+            }, 1000);
         } catch (error) {
             toast.error(error.response.data.message || "Error al eliminar usuario.", {position: "top-center"});
             console.log(error)
