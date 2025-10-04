@@ -5,6 +5,8 @@
     background-color: rgb(255, 255, 255);
     opacity: 0.8;
     border-radius: 8px;
+    position: relative;
+    overflow-y: auto;
 }
 
 .title_publications_profile{
@@ -38,8 +40,95 @@
     box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
 }
 
-.button-create-publications-profile:hover{
-    transform: translateY(-1px);
+.button-create-publications-profile:hover{transform: translateY(-1px);}
+
+.containerGeneral_ProductOwner{
+    display: flex;
+    flex-wrap: wrap;
+    height: calc(100% - 90px);
+    gap: 30px;
+    margin: 0 50px;
+}
+
+.containerProductOwner{
+    position: relative;
+    background-color: #fff;
+    width: 35%;
+    max-width: 350px;
+    min-width: 250px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 14px 12px rgba(0, 0, 0, 0.1);
+}
+
+.img_Product{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 181px;
+    background-color: #f0f0f0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.img_productOwner{
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.container_title_product{
+    border-bottom: 2px solid #e7e7e7;
+    overflow-y: auto;
+    max-height: 55px;
+    word-wrap: break-word;
+}
+
+.title_Product{
+    margin-top: 18px;
+    text-align: center;
+    font-size: 20px;
+    color: #285194;
+    font-weight: 700;
+    font-family: "Outfit";
+}
+
+.container_description_product{
+    padding: 10px;
+    text-align: left;
+    max-width: 100%;
+    max-height: 86px;
+    border-bottom: 2px solid #e7e7e7;
+    overflow-y: auto;
+   word-wrap: break-word;
+}
+
+.container_open_dialog{padding: 10px;}
+
+.ancla_open_dialog{cursor: pointer; color: #285194;}
+
+.container_button_interactive{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#button_edit{background-color: #285194;}
+#button_delete{ background-color: rgb(233, 70, 70);}
+
+
+@media (max-width: 1010px) {
+    .containerGeneral_ProductOwner {
+        justify-content: center;
+    }
+    .containerProductOwner{
+        width: 80%;
+        max-width: 550px;
+    }
+
 }
 
 @media(max-width: 773px){
@@ -47,5 +136,3 @@
     .container_publications_profile{ width: 320px;}
     .title_publications_profile{text-align: center;}
 } 
-
-

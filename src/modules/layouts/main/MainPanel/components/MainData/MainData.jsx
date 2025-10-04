@@ -1,23 +1,16 @@
 import React, { useEffect } from "react";
-import { useUserStore } from "../../../../../../App/stores/Store";
-import { useNavigate } from "react-router-dom";
-import Carrusel from "../../../../../../components/carrusel/carrusel";
-import Computer from "../../../../../../resources/images/computer.png";
-import Discount from "../../../../../../resources/images/discount.png";
-import Change from "../../../../../../resources/images/change.png";
 import "./MainData.css";
+import { useUserStore } from "../../../../../../App/stores/Store"; //Importamos el store para manejar los estados globales.
+import { useNavigate } from "react-router-dom"; //Hook para navegar entre rutas.
+import Carrusel from "../../../../../../components/carrusel/carrusel"; //Importamos el componente del carrusel.
+import Computer from "../../../../../../resources/images/computer.png"; //Importamos las imágenes a utilizar.
+import Discount from "../../../../../../resources/images/discount.png"; //Importamos las imágenes a utilizar.
+import Change from "../../../../../../resources/images/change.png"; //Importamos las imágenes a utilizar.
 
 const MainData = () => {
 
-    const navigate = useNavigate();
-    const {username, initializeUser} = useUserStore(); //Función para inicializar el usuario.
-    useEffect (() => { 
-        initializeUser(); 
-        const interval = setInterval(() => {
-            initializeUser()
-        }, 60*60*1000); //Valida cada 5 minutos.
-        return () => clearInterval(interval) 
-    },[initializeUser])
+    const navigate = useNavigate(); //Hook para navegar entre rutas.
+    const {username} = useUserStore(); //Función para inicializar el usuario.
 
     const Carousel = [ //Arreglo que contiene los datos para las tarjetas del carrusel
         {name: "Intercambios", img: Change, descr: "Intercambia lo que ya no usas por lo que realmente necesitas. Conecta con otros usuarios de forma práctica y segura, generando oportunidades de ahorro.", ruta: "/intercambios"},

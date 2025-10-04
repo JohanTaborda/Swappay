@@ -65,3 +65,18 @@ img { /*Deshabilitamos la selección de imagenes*/
     -ms-user-select: none;
     pointer-events: none;
 }
+
+.buttons_swappay{ /*Estilos generales para los botones de la aplicación*/
+    height: 35px;
+    width: 100px;
+    border-radius: 6px;
+    font-family: "Outfit";
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.buttons_swappay:hover{ /*Animación hover para los botones de la aplicación*/
+    transform: translateY(-2px);
+}
