@@ -15,7 +15,7 @@
 
 .product-modal-content {
   background: #fff;
-  border-radius: 18px;
+  border-radius: 10px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
   padding: 32px 36px;
   max-width: 560px;
@@ -26,23 +26,27 @@
   align-items: center;
   animation: modal-fade 0.25s ease-out;
   max-height: 90vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #999 transparent;
+  overflow: hidden;
   box-sizing: border-box;
-  padding-right: 44px;
 }
 
-.product-modal-content::-webkit-scrollbar {
-  width: 8px;
+.product-modal-container{
+  width: 100%;
+  max-height: calc(90vh - 140px);
+  overflow-y: scroll;
+  padding-right: 8px;
 }
 
-.product-modal-content::-webkit-scrollbar-thumb {
+.product-modal-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.product-modal-container::-webkit-scrollbar-thumb {
   background-color: #999;
   border-radius: 10px;
 }
 
-.product-modal-content::-webkit-scrollbar-track {
+.product-modal-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
@@ -197,7 +201,8 @@
 }
 
 .imagen1-preview,
-.imagen2-preview {
+.imagen2-preview, 
+.imagen3-preview {
   max-width: 100%;
   border-radius: 18px;
   margin-bottom: 10px;

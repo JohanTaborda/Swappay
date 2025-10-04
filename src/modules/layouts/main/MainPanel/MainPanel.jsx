@@ -15,6 +15,7 @@ import "./MainPanel.css"
 
 const MainPanel = () =>{
     const location = useLocation(); //Usamos el hook de useLocation para ver la ubicación actual.
+    const [sectionDisplay, setSectionDisplay] = useState(false);
     let contentSection; //Variable que almacena el componente a renderizar según la ruta en el pathname.
 
     //Condicionales que validan que componente mostrar según la opción.
@@ -23,6 +24,11 @@ const MainPanel = () =>{
     else if (location.pathname === '/intercambios') contentSection = <Exchanges/>;
     else contentSection = <MainData/>;
 
+    useEffect(() => {
+        if (location.pathname === '/panel' || location.pathname === '/ofertas' || location.pathname === '/intercambios' ) setSectionDisplay(true);
+        else setSectionDisplay(false);
+    }, [location.pathname]);
+
     const [showModal, setShowModal] = useState(false); //Estado para controlar el modal.
 
     return (
@@ -30,7 +36,7 @@ const MainPanel = () =>{
             <MainHeader />
             {contentSection}
         
-            <button className="buttonProductForm" onClick={() => setShowModal(true)} title="Abrir formulario"> <IoAdd /> </button> {/*Botón flotante para abrir el formulari. Al dar click showModal a true (abre el modal)*/}
+            <button className="buttonProductForm"  style={{ display: sectionDisplay ? "" : "none" }} onClick={() => setShowModal(true)} title="Abrir formulario"> <IoAdd /> </button> {/*Botón flotante para abrir el formulari. Al dar click showModal a true (abre el modal)*/}
             <ProductForm open={showModal} onClose={() => setShowModal(false)} /> {/*Componente del formulario de producto dentro de un modal*/}
         </div>
     );
