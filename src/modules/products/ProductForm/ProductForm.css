@@ -1,0 +1,236 @@
+.product-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1300;
+  backdrop-filter: blur(4px);
+  font-family: "Outfit";
+}
+
+.product-modal-content {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+  padding: 32px 36px;
+  max-width: 560px;
+  width: 90vw;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: modal-fade 0.25s ease-out;
+  max-height: 90vh;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.product-modal-container{
+  width: 100%;
+  max-height: calc(90vh - 140px);
+  overflow-y: scroll;
+  padding-right: 8px;
+}
+
+.product-modal-container::-webkit-scrollbar {
+  width: 0px;
+}
+
+.product-modal-container::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 10px;
+}
+
+.product-modal-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.product-modal-content h2 {
+  font-size: 1.6rem;
+  font-family: "Outfit";
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 0.95rem;
+  font-family: "Manrope";
+  color: #6b7280;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+@keyframes modal-fade {
+  from {
+    transform: translateY(-12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.product-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #9ca3af;
+  transition: color 0.25s, transform 0.15s;
+  z-index: 10;
+}
+
+.product-modal-close:hover {
+  color: #ef4444;
+  transform: scale(1.15);
+}
+
+.visual-form {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 32px 28px;
+  background: #fafbff;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
+  border: 1px solid #e0e7ff;
+  width: 100%;
+}
+
+.form-section {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.form-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  color: #4f46e5;
+  font-weight: 600;
+  margin-bottom: 8px !important;
+  font-size: 1rem;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.88em;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+.submit-btn {
+  margin-top: 16px !important;
+  font-weight: 500 !important;
+  font-size: 0.9em !important;
+  padding: 8px 16px !important;
+  background: #285194 !important;
+  color: #fff !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.25) !important;
+  border-radius: 18px !important;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 360px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-btn:hover {
+  background: #285194 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3) !important;
+}
+
+.formProduct {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 32px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.formProduct > div {
+  flex: 1 1 340px;
+  min-width: 260px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formProduct input,
+.formProduct select {
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  color: #374151;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.formProduct input:focus,
+.formProduct select:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.formProduct label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.imagen1-preview,
+.imagen2-preview, 
+.imagen3-preview {
+  max-width: 100%;
+  border-radius: 18px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .formProduct {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .formProduct > div {
+    gap: 6px;
+    flex: 1 1 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .product-modal-content {
+    padding: 24px 20px;
+    padding-right: 24px;
+  }
+
+  .form-title {
+    margin-bottom: 16px;
+  }
+
+  .product-modal-content h2 {
+    font-size: 1.4rem;
+  }
+}
