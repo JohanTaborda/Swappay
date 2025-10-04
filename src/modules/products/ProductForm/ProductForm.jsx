@@ -30,12 +30,12 @@ export default function ProductForm({ open = false, onClose }) {
     formData.append('category', data.category);
     formData.append('condition', data.condition);
     formData.append('amount', data.amount);
-    formData.append('interests', data.interests);
     formData.append('additionalNotes', data.additionalNotes);
     formData.append('ubication', data.ubication);
     formData.append('deliveryMethod', data.deliveryMethod);
     // Campo opcional de precio en swapcoins
     if (data.priceSwapcoins) formData.append('priceSwapcoins', data.priceSwapcoins);
+    if (data.interests) formData.append('interests', data.interests);
 
     // Agregar imágenes solo si existen
     if (data.imagen1 && data.imagen1[0]) formData.append('image1', data.imagen1[0]);
@@ -56,7 +56,6 @@ export default function ProductForm({ open = false, onClose }) {
             }, 2000);
         } catch (error) {
             toast.error(error.response.data.error, {position: "top-center"}); //Mensaje informativo.
-            console.error("Error al crear el producto:", error);
         }
     };
 
@@ -66,6 +65,7 @@ export default function ProductForm({ open = false, onClose }) {
             setPreview1(null);
             setPreview2(null);
             setPreview3(null);
+            setButtonDisabled(false);
         }
     }, [open, reset]);
 
@@ -203,7 +203,6 @@ export default function ProductForm({ open = false, onClose }) {
                         <div className="interests">
                             <TextField
                                 label="¿Qué aceptarias por el producto?"
-                                type="text"
                                 variant="outlined"
                                 fullWidth
                                 size="small"
