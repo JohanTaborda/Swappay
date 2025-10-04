@@ -93,6 +93,18 @@
     background-color: #ffe6e6;
 }
 
+.edit-user-select{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+#country_select{
+    padding: 0;
+    font-family: "Outfit";
+}
+
+#input_register_password, #input_Confirm_register_password{width: 100%;}
 
 @media(max-width: 811px){
     .containerLogo{display: none;}
@@ -125,3 +137,4 @@
         height: 480px;
     }
 } 
+
