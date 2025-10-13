@@ -5,6 +5,8 @@ import api from "../../service/axiosConfig"; //Importamos api para comunicarnos 
 import { useUserStore } from "../../App/stores/Store"; //Importamos el store para manejar los estados globales.
 import { toast } from "react-toastify"; //Utilizamos los push informativos.
 
+import ProductForm from "../../modules/products/ProductForm/ProductForm";
+
 import PublicationDialog from "../../modules/publications/PublicationDialog/PublicationDialog"; //Importamos el componente del popup para ver más detalles de la publicación.
 
 const Publications = () => { 
@@ -13,6 +15,7 @@ const Publications = () => {
     const [open, setOpen] = useState(false); // controla si el popup está abierto
     const [selectedProduct, setSelectedProduct] = useState(null); // producto seleccionado
     const [refresh, setRefresh] = useState(false); //Estado que permite refrescar el componente luego de eliminar un producto.
+    const [showModal, setShowModal] = useState(false); //Estado para controlar el modal.
 
     useEffect(() => { //Hook que contiene una función para comunicarnos con el backend y traer los productos del usuario.
         const dataProductsUser = async () => {
@@ -57,7 +60,7 @@ const Publications = () => {
           <h5 className="info_publications_profile">
             No hay publicaciones disponibles.
           </h5>
-          <button className="button-create-publications-profile">
+          <button className="button-create-publications-profile" onClick={() => setShowModal(true)}>
             Crear Publicación
           </button>
         </section>
@@ -95,6 +98,8 @@ const Publications = () => {
       {open && (
         <PublicationDialog dataUser={selectedProduct} open={open} handleClose={handleClose}/>
       )}
+
+      <ProductForm open={showModal} onClose={() => setShowModal(false)} /> {/*Componente del formulario de producto dentro de un modal*/}
     </div>
   );
 };
