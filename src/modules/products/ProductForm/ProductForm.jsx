@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { createPortal } from "react-dom";
+import { useForm, Controller } from "react-hook-form";
 import { MenuItem, Select, FormControl, InputLabel, TextField, Button, Typography } from "@mui/material";
 import "./ProductForm.css";
 
@@ -8,39 +9,41 @@ import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 
 import { useUserStore } from "../../../App/stores/Store";
+import { useLocation } from "react-router-dom";
 
 //Listas de opciones para el formulario
 const categories = [ "Hogar", "Juguetes", "Libros", "Ropa", "Tecnología", "Deportes", "Entretenimiento"];
 const conditions = [ "Nuevo", "Reacondicionado", "Usado"];
 const delivery = [ "Envío", "Digital"];
 
-export default function ProductForm({ open = false, onClose }) {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+const ProductForm = ({ open = false, onClose }) => {
+    const { register, handleSubmit, formState: { errors }, reset, control } = useForm();
     const [preview1, setPreview1] = useState(null);     
     const [preview2, setPreview2] = useState(null);
     const [preview3, setPreview3] = useState(null); // Estado para la tercera imagen
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const {id} = useUserStore();
+    const location = useLocation()
 
     const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append('idUser', id);
-    formData.append('title', data.title);
-    formData.append('description', data.description);
-    formData.append('category', data.category);
-    formData.append('condition', data.condition);
-    formData.append('amount', data.amount);
-    formData.append('additionalNotes', data.additionalNotes);
-    formData.append('ubication', data.ubication);
-    formData.append('deliveryMethod', data.deliveryMethod);
-    // Campo opcional de precio en swapcoins
-    if (data.priceSwapcoins) formData.append('priceSwapcoins', data.priceSwapcoins);
-    if (data.interests) formData.append('interests', data.interests);
+        const formData = new FormData();
+        formData.append('idUser', id);
+        formData.append('title', data.title);
+        formData.append('description', data.description);
+        formData.append('category', data.category);
+        formData.append('condition', data.condition);
+        formData.append('amount', data.amount);
+        formData.append('additionalNotes', data.additionalNotes);
+        formData.append('ubication', data.ubication);
+        formData.append('deliveryMethod', data.deliveryMethod);
+        // Campo opcional de precio en swapcoins
+        if (data.priceSwapcoins) formData.append('priceSwapcoins', data.priceSwapcoins);
+        if (data.interests) formData.append('interests', data.interests);
 
-    // Agregar imágenes solo si existen
-    if (data.imagen1 && data.imagen1[0]) formData.append('image1', data.imagen1[0]);
-    if (data.imagen2 && data.imagen2[0]) formData.append('image2', data.imagen2[0]);
-    if (data.imagen3 && data.imagen3[0]) formData.append('image3', data.imagen3[0]);
+        // Agregar imágenes solo si existen
+        if (data.imagen1 && data.imagen1[0]) formData.append('image1', data.imagen1[0]);
+        if (data.imagen2 && data.imagen2[0]) formData.append('image2', data.imagen2[0]);
+        if (data.imagen3 && data.imagen3[0]) formData.append('image3', data.imagen3[0]);
 
         try {
             await api.post('/products', formData, {
@@ -53,6 +56,12 @@ export default function ProductForm({ open = false, onClose }) {
             setButtonDisabled(true);
             setTimeout(() => {
                 if (onClose) onClose();
+                if(location.pathname == "/perfil/publicaciones"){
+                    setTimeout(() => {
+                        window.location.reload();
+                    },); 
+                }
+
             }, 2000);
         } catch (error) {
             toast.error(error.response.data.error, {position: "top-center"}); //Mensaje informativo.
@@ -106,7 +115,7 @@ export default function ProductForm({ open = false, onClose }) {
         }
     };
 
-    return (
+    return createPortal(
         <div className="product-modal-overlay">
             <div className="product-modal-content">
                <div className="product-modal-container">
@@ -150,17 +159,24 @@ export default function ProductForm({ open = false, onClose }) {
                         <div className="category">
                             <FormControl fullWidth size="small" sx={{ mb: 1 }} error={!!errors.category}>
                                 <InputLabel id="category-label">Categoría</InputLabel>
-                                <Select
-                                    labelId="category-label"
-                                    label="Categoría"
+                                <Controller
+                                    name="category"
+                                    control={control}
+                                    rules={{ required: true }}
                                     defaultValue=""
-                                    {...register("category", { required: true })}
-                                >
-                                    <MenuItem value=""><em>Selecciona una categoría</em></MenuItem>
-                                    {categories.map((cat) => (
-                                        <MenuItem key={cat} value={cat}>{cat}</MenuItem>
-                                    ))}
-                                </Select>
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="category-label"
+                                            label="Categoría"
+                                            {...field}
+                                        >
+                                            <MenuItem value=""><em>Selecciona una categoría</em></MenuItem>
+                                            {categories.map((cat) => (
+                                                <MenuItem key={cat} value={cat}>{cat}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
                                 {errors.category && <Typography variant="caption" color="error">Este campo es obligatorio</Typography>}
                             </FormControl>
                         </div>
@@ -169,16 +185,24 @@ export default function ProductForm({ open = false, onClose }) {
                         <div className="condition">
                             <FormControl fullWidth size="small" sx={{ mb: 1 }} error={!!errors.condition}>
                                 <InputLabel id="condition-label">Condición</InputLabel>
-                                <Select
-                                    labelId="condition-label"
-                                    label="Condición"
+                                <Controller
+                                    name="condition"
+                                    control={control}
+                                    rules={{ required: true }}
                                     defaultValue=""
-                                    {...register("condition", { required: true })}
-                                >
-                                    {conditions.map((cond) => (
-                                        <MenuItem key={cond} value={cond}>{cond}</MenuItem>
-                                    ))}
-                                </Select>
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="condition-label"
+                                            label="Condición"
+                                            {...field}
+                                        >
+                                            <MenuItem value=""><em>Selecciona una condición</em></MenuItem>
+                                            {conditions.map((cond) => (
+                                                <MenuItem key={cond} value={cond}>{cond}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
                                 {errors.condition && <Typography variant="caption" color="error">Este campo es obligatorio</Typography>}
                             </FormControl>
                         </div>
@@ -209,7 +233,6 @@ export default function ProductForm({ open = false, onClose }) {
                                 multiline
                                 minRows={2}
                                 sx={{ mb: 1 }}
-                                helperText={errors.interests ? 'Este campo es obligatorio' : ''}
                                 {...register("interests", { required: true })}
                             />
                         </div>
@@ -246,20 +269,27 @@ export default function ProductForm({ open = false, onClose }) {
 
                         {/* Método de entrega */}
                         <div className="deliveryMethod">
-                            <FormControl fullWidth size="small" sx={{ mb: 1 }} error={!!errors.deliveryMethod}> 
-                                <InputLabel id="deliveryMethod-label">Método de entrega</InputLabel> 
-                                <Select 
-                                    labelId="deliveryMethod-label" 
-                                    label="Método de entrega" 
-                                    defaultValue="" 
-                                    {...register("deliveryMethod", { required: true })} 
-                                > 
-                                    <MenuItem value=""><em>Selecciona el método de entrega</em></MenuItem> 
-                                    {delivery.map((shape) => ( 
-                                        <MenuItem key={shape} value={shape}>{shape}</MenuItem> 
-                                    ))} 
-                                </Select> 
-                                {errors.deliveryMethod && <Typography variant="caption" color="error">Este campo es obligatorio</Typography>} 
+                            <FormControl fullWidth size="small" sx={{ mb: 1 }} error={!!errors.deliveryMethod}>
+                                <InputLabel id="deliveryMethod-label">Método de entrega</InputLabel>
+                                <Controller
+                                    name="deliveryMethod"
+                                    control={control}
+                                    rules={{ required: true }}
+                                    defaultValue=""
+                                    render={({ field }) => (
+                                        <Select
+                                            labelId="deliveryMethod-label"
+                                            label="Método de entrega"
+                                            {...field}
+                                        >
+                                            <MenuItem value=""><em>Selecciona el método de entrega</em></MenuItem>
+                                            {delivery.map((shape) => (
+                                                <MenuItem key={shape} value={shape}>{shape}</MenuItem>
+                                            ))}
+                                        </Select>
+                                    )}
+                                />
+                                {errors.deliveryMethod && <Typography variant="caption" color="error">Este campo es obligatorio</Typography>}
                             </FormControl>
                         </div>
 
@@ -352,15 +382,18 @@ export default function ProductForm({ open = false, onClose }) {
                                 {/* No mostrar error ya que es opcional */}
                         </div>
 
-                        <Button type="submit" disabled={buttonDisabled} variant="contained" fullWidth sx={{ mt: 2, fontWeight: 'bold' }}>
+                        <Button type="submit" disabled={buttonDisabled} variant="contained" fullWidth sx={{ mt: 2, fontWeight: 'bold', backgroundColor:"#285194", fontFamily: "Outfit   " }}>
                             Publicar Producto
                         </Button> 
                     </form>
                </div>
         </div>
         <div>
-            <ToastContainer position="bottom-right" autoClose={2000} hideProgressBar={false} closeOnClick pauseOnHover draggable/> {/*Paneles informativos de la aplicación.*/}
+            <ToastContainer position="bottom-right" autoClose={2000} hideProgressBar={false} closeOnClick pauseOnHover draggable/>
         </div>
-    </div>
+    </div>,
+    document.body
     );
 }
+
+export default ProductForm;
